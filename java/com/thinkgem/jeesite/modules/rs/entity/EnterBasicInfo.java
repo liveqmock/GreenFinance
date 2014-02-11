@@ -14,12 +14,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.thinkgem.jeesite.common.persistence.BaseEntity;
+
 /**
  * Enterbasicinfo entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "rs_enterbasicinfo", catalog = "jeesite")
-public class EnterBasicInfo implements java.io.Serializable {
+public class EnterBasicInfo extends BaseEntity<EnterBasicInfo>{
 
 	// Fields
 
@@ -43,6 +45,7 @@ public class EnterBasicInfo implements java.io.Serializable {
 	private String telephone;
 	private Set<EnterAirInfo> enterAirInfos = new HashSet<EnterAirInfo>(
 			0);
+	private String delFlag;
 
 	// Constructors
 
@@ -210,5 +213,14 @@ public class EnterBasicInfo implements java.io.Serializable {
 			Set<EnterAirInfo> enterAirInfos) {
 		this.enterAirInfos = enterAirInfos;
 	}
-
+	
+	@Column(name = "DelFlag", length = 1)
+	public void setDelFlag(String delFlag){
+		this.delFlag = delFlag;
+	}
+	
+	public String getDelFlag(){
+		return delFlag;
+	}
+	
 }

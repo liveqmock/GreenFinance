@@ -11,12 +11,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.thinkgem.jeesite.common.persistence.BaseEntity;
+
 /**
  * Industrytype entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "rs_industry", catalog = "jeesite")
-public class IndustryType implements java.io.Serializable {
+public class IndustryType extends BaseEntity<IndustryType>{
 
 	// Fields
 
@@ -108,5 +110,11 @@ public class IndustryType implements java.io.Serializable {
 		this.industryAirStandards = industryairqualitystandards;
 	}
 	
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.industryCode + " " + (industryName == null ? " ":industryName);
+	}
 
 }

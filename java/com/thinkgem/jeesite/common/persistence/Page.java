@@ -53,6 +53,10 @@ public class Page<T> {
 		this.pageSize = -1;
 	}
 	
+	public Page(int pageSize){
+		this.pageSize = pageSize;
+	}
+	
 	/**
 	 * 构造方法
 	 * @param request 传递 repage 参数，来记住页码
