@@ -17,7 +17,7 @@
    			<c:when test="${not empty site.logo}">
    				<img alt="${site.title}" src="${site.logo}" class="container" onclick="location='${ctx}/index-${site.id}${fns:getUrlSuffix()}'">
    			</c:when>
-   			<c:otherwise><a class="brand" href="${ctx}/index-${site.id}${fns:getUrlSuffix()}">${site.title}</a></c:otherwise>
+   			<c:otherwise><a class="brand" href="${ctx}/index-${site.id}${fns:getUrlSuffix()}">绿色金融</a></c:otherwise>
    		  </c:choose>
           <div class="nav-collapse">
             <ul id="main_nav" class="nav nav-pills">
