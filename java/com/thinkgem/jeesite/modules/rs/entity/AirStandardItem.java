@@ -12,12 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.thinkgem.jeesite.common.persistence.BaseEntity;
+import com.thinkgem.jeesite.common.persistence.IdEntity;
+
 /**
  * Airqualitystandarditem entity. @author MyEclipse Persistence Tools
  */
 @Entity
 @Table(name = "rs_airstandard", catalog = "jeesite")
-public class AirStandardItem implements java.io.Serializable {
+public class AirStandardItem extends IdEntity<AirStandardItem>{
 
 	// Fields
 
@@ -25,7 +28,6 @@ public class AirStandardItem implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3832843595566947919L;
-	private Integer id;
 	private String itemName;
 	private String avarageTime;
 	private String itemUnit;
@@ -60,17 +62,6 @@ public class AirStandardItem implements java.io.Serializable {
 		this.enterAirInfos = enterAirInfos;
 	}
 
-	// Property accessors
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "Id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	@Column(name = "ItemName", nullable = false, length = 30)
 	public String getItemName() {

@@ -147,10 +147,12 @@ public class ArticleService extends BaseService {
 	public List<Object[]> findByIds(String ids) {
 		List<Object[]> list = Lists.newArrayList();
 		String[] idss = StringUtils.split(ids,",");
-		if (idss.length>0){
-			List<Article> l = articleDao.findByIdIn(idss);
-			for (Article e : l){
-				list.add(new Object[]{e.getCategory().getId(),e.getId(),StringUtils.abbr(e.getTitle(),50)});
+		if(idss != null){
+			if (idss.length>0){
+				List<Article> l = articleDao.findByIdIn(idss);
+				for (Article e : l){
+					list.add(new Object[]{e.getCategory().getId(),e.getId(),StringUtils.abbr(e.getTitle(),50)});
+				}
 			}
 		}
 		return list;

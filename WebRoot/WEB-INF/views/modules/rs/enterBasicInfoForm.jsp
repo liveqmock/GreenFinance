@@ -6,12 +6,11 @@
   <head>
   	<meta name="decorator" content="default"/>
   	<title>企业基本信息管理</title>
-
   </head>
   
   <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/rs/enterBasicInfo">企业列表</a></li>
+		<li><a href="${ctx}/rs/enterBasicInfo/list">企业列表</a></li>
 		<li class="active"><a href="${ctx}/rs/enterBasicInfo/form">添加企业</a></li>
 	</ul>
 
@@ -26,9 +25,8 @@
 		<div class="control-group">
 			<label class="control-label">行业类型</label>
 			<div class="controls">
-				<form:select path="industryType">
-					<form:options items="${industryTypies}"/>
-				</form:select>
+				<tags:treeselect id="industryType" name="industryType" value="${enterBasicInfo.industryType}" labelName="industryType.industryName" labelValue="${enterBasicInfo.industryType.industryName}"
+					title="行业" url="/rs/industryType/treeData" extId="${industryType.industryCode}" cssClass="required"/>
 			</div>
 		</div>
 		<div class="control-group">

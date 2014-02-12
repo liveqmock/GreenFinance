@@ -30,6 +30,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.cms.entity.Article;
+import com.thinkgem.jeesite.modules.cms.entity.ArticleData;
 import com.thinkgem.jeesite.modules.cms.entity.Category;
 import com.thinkgem.jeesite.modules.cms.entity.Site;
 import com.thinkgem.jeesite.modules.cms.service.ArticleService;
@@ -65,7 +66,7 @@ public class ArticleController extends BaseController {
 	@RequiresPermissions("cms:article:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(Article article, HttpServletRequest request, HttpServletResponse response, Model model) {
-//		for (int i=0; i<10000000; i++){
+//		for (int i=0; i<20; i++){
 //			Article a = new Article();
 //			a.setCategory(new Category(article.getCategory().getId()));
 //			a.setTitle("测试测试测试测试测试测试测试测试"+a.getCategory().getId());

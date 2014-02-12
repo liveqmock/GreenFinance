@@ -1,6 +1,8 @@
 package com.thinkgem.jeesite.modules.rs.service;
 
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -29,6 +31,23 @@ public class EnterBasicInfoService {
 		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
 		dc.addOrder(Order.asc("enterCode"));
 		return enterBasicInfoDAO.find(page,dc);
+	}
+	
+	public Page<EnterBasicInfo> findByIndustryCode(Page<EnterBasicInfo> page,String industryCode){
+		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
+		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
+		dc.add(Restrictions.eq("industryType.industryCode",industryCode));
+		dc.addOrder(Order.desc("enterCode"));
+		return enterBasicInfoDAO.find(page,dc);
+	}
+	
+	
+	public List<EnterBasicInfo> findByIndustryCode(String industryCode){
+		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
+		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
+		dc.add(Restrictions.eq("industryType.industryCode",industryCode));
+		dc.addOrder(Order.desc("enterCode"));
+		return enterBasicInfoDAO.find(new Page<EnterBasicInfo>(),dc).getList();
 	}
 	
 	@Transactional(readOnly = false)

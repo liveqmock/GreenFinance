@@ -9,7 +9,7 @@
   
   <body>
   	<ul class="nav nav-tabs">
-		<li class="active"><a href="${ctx}/rs/enterBasicInfo">企业列表</a></li>
+		<li class="active"><a href="${ctx}/rs/enterBasicInfo/list">企业列表</a></li>
 		<li><a href="${ctx}/rs/enterBasicInfo/form">添加企业</a></li>
 	</ul>
 	<tags:message content="${message}"></tags:message>

@@ -43,10 +43,18 @@ public class EnterBasicInfoController extends BaseController{
 		}
 	}
 
-	@RequestMapping(value = {"list",""})
-	public String list(Model model){
-		Page<EnterBasicInfo> page= enterBasicInfoService.find(new Page<EnterBasicInfo>(10));
-		model.addAttribute("page",page);
+	@RequestMapping(value = "")
+	public String index(){
+		return "modules/rs/rsIndex";
+	}
+	
+	
+	@RequestMapping(value = "list")
+	public String list(@RequestParam(required = false) String industryCode,Model model){
+		if(industryCode != null){
+			Page<EnterBasicInfo> page= enterBasicInfoService.findByIndustryCode(new Page<EnterBasicInfo>(10),industryCode);
+			model.addAttribute("page",page);
+		}
 		return "modules/rs/enterBasicInfoList";
 	}
 	
@@ -54,15 +62,15 @@ public class EnterBasicInfoController extends BaseController{
 	public String form(@RequestParam(required = false) String enterCode,EnterBasicInfo enterBasicInfo,Model model){
 		if(enterCode != null){
 			enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
-			model.addAttribute("enterBasicInfo",enterBasicInfo);
-			List<IndustryType> industryTypies = industryTypeService.findAll(new Page<IndustryType>()).getList();
+			List<IndustryType> industryTypies = industryTypeService.findAll();
 			model.addAttribute("industryTypies",industryTypies);
+			model.addAttribute("enterBasicInfo",enterBasicInfo);
 		}
 		return "modules/rs/enterBasicInfoForm";
 	}
 	
 	@RequestMapping(value = "save")
-	public String save(@ModelAttribute EnterBasicInfo enterBasicInfo,RedirectAttributes redirectAttributes,HttpServletRequest request){
+	public String save(EnterBasicInfo enterBasicInfo,RedirectAttributes redirectAttributes){
 		enterBasicInfoService.save(enterBasicInfo);
 		addMessage(redirectAttributes,"保存成功");
 		return "redirect:" + Global.getAdminPath() + "/rs/enterBasicInfo/list";
