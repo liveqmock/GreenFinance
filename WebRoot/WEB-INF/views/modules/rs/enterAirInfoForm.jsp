@@ -3,35 +3,36 @@
 <html>
   <head>
   	<meta name="decorator" content="default"/>
-	<title>空气质量指标信息管理</title>
+	<title>大气环境</title>
 	
   </head>
   
   <body>
   	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/rs/airStandardItem">空气质量指标列表</a></li>
-		<li class="active"><a href="${ctx}/rs/airStandardItem/form">添加指标</a></li>
+		<li class="active"><a href="">大气环境</a></li>
+		<li><a href="">水环境</a></li>
+		<li><a href="">声环境</a></li>
+		<li><a href="">固体废弃物环境</a></li>
+		<li><a href="">节能生产</a></li>
+		<li><a href="">节能减排</a></li>
+		<li><a href="">生态环境</a></li>
 	</ul>
-	<form:form id="inputForm" modelAttribute="airStandardItem" action="${ctx}/rs/airStandardItem/save" method="post">
+	<form:form id="inputForm" action="${ctx}/rs/enterAirInfo/save" method="post">
 		<tags:message content="${message }"></tags:message>
-		<form:hidden path="id"/>
 		<div class="control-group">
-			<label class="control-label">指标项名称</label>
+			<label class="control-label">S02浓度限值</label>
 			<div class="controls">
-				<form:input path="itemName" />
-				
 			</div>
+			<label class="control-label">ug/m3</label>
 		</div>
 		<div class="control-group">
 			<label class="control-label">平均时间</label>
 			<div class="controls">
-				<form:input path="avarageTime"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">单位</label>
 			<div class="controls">
-				<form:input path="itemUnit" />
 			</div>
 		</div>
 		<div class="form-actions">
