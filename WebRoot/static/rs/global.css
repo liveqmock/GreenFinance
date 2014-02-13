@@ -1,0 +1,58 @@
+@charset "utf-8";
+/** 清除内外边距**/
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,div,/* 结构元素 */
+dl,dt,dd,ul,ol,li,/* 列表元素 */
+form,fieldset,legend,button,input,textarea,option,select,/* 表单元素 */
+pre,/* 文本格式元素 */
+tr,td,/* 表格元素 */
+img{ margin:0; padding:0;}
+
+/** 设置默认字体 **/
+body,button,input,select,textarea{ font:12px "宋体"; line-height:22px;}
+h1,h2,h3,h4,h5,h6{font-size:12px;}
+em{font-weight:normal;}
+
+/** 重置列表元素 **/
+ul,ol{ list-style:none;}
+
+/** 重置图片元素 **/
+img{ border:0px;}
+
+/**div居中**/
+div{margin:0 auto;}
+
+/** 重置表格元素 **/
+table {border-collapse:collapse;border-spacing:0;}
+
+/**重置表格元素**/
+button,input{height:22px;}
+
+/** 以下为简写通用样式 **/
+/*全局类*/
+.cb{clear:both; height:0px; margin:0; padding:0; width:0; border:none; overflow:hidden;}
+.cl{clear:left;}
+.cr{clear:right;}
+.fl{float:left;}
+.fr{float:right;}
+.dis{display:block;}
+.ndis{display:none;}
+.disin{display:inline;}
+.pointer{cursor:pointer;}
+/*链接类*/
+a.link000:link,a.link000:visited{font-size:12px; text-decoration:none; color:#000;font-weight:normal}
+a.link000:hover{font-size:12px; text-decoration:underline; color:#000;font-weight:normal}
+a.linkfff:link,a.linkfff:visited{font-size:12px; text-decoration:none; color:#fff;font-weight:normal}
+a.linkfff:hover{font-size:12px; text-decoration:underline; color:#fff;font-weight:normal}
+a.link666:link,a.link666:visited{font-size:12px; text-decoration:none; color:#666;font-weight:normal}
+a.link666:hover{font-size:12px; text-decoration:underline; color:#666;font-weight:normal}
+a.link333:link,a.link333:visited{font-size:12px; text-decoration:none; color:#333;font-weight:normal}
+a.link333:hover{font-size:12px; text-decoration:underline; color:#333;font-weight:normal}
+a.linkGrayRed:link, a.linkGrayRed:visited {color: #666666;font-size: 12px;font-weight: normal;text-decoration: none;}
+a.linkGrayRed:hover {color: #FF0000;font-size: 12px;font-weight: normal;text-decoration: none;}
+
+
+
+
+
+
+

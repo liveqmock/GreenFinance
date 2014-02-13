@@ -1,9 +1,4 @@
-/**
- * Copyright &copy; 2012-2013 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
-package com.thinkgem.jeesite.modules.cms.web.front;
+package com.thinkgem.jeesite.modules.rs.web.front;
 
 import java.util.Collections;
 import java.util.Date;
@@ -13,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.mapper.JsonMapper;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.servlet.ValidateCodeServlet;
 import com.thinkgem.jeesite.common.utils.StringUtils;
@@ -42,12 +37,12 @@ import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
 
 /**
  * 网站Controller
- * @author ThinkGem
- * @version 2013-5-29
+ * @author MySugar
+ * @version 2013-1-12
  */
 @Controller
-@RequestMapping(value = "${frontPath}")
-public class FrontController extends BaseController{
+@RequestMapping(value = "${rsFrontPath}")
+public class RFrontController extends BaseController{
 	
 	@Autowired
 	private ArticleService articleService;
@@ -64,11 +59,11 @@ public class FrontController extends BaseController{
 	 */
 	@RequestMapping
 	public String index(Model model) {
-		System.out.println("22222222222222222");
+		System.out.println("------------111111");
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
-		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
+		return "modules/rs/front/frontIndex";
 	}
 	
 	/**
@@ -91,12 +86,6 @@ public class FrontController extends BaseController{
 		return "redirect:"+Global.getFrontPath()+"/list-"+firstCategoryId+Global.getUrlSuffix();
 	}
 	
-	@RequestMapping(value = "zhi")
-	public String zhi(){
-		
-		System.out.println("已经映射了");
-		return "test";
-	}
 	/**
 	 * 内容列表
 	 */

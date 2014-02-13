@@ -9,4 +9,6 @@
 	<decorator name="cms_default_basic" page="modules/cms/front/themes/basic/layouts/default.jsp" />
 	<decorator name="cms_default_zgxj_blue" page="modules/cms/front/themes/zgxj_blue/layouts/default.jsp" />
 	
+	<!-- rs基础装饰页面 -->
+	<decorator name="rs_default" page="modules/rs/front/default.jsp" />
 </decorators>

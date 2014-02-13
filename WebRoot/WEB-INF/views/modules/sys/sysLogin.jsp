@@ -46,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="${ctx}"><img src="${ctxStatic}/images/logo.png" alt="Jeesite Admin" style="height:40px;"></a>
+          <a class="brand" href="${ctx}"><img src="$" alt="Jeesite Admin" style="height:40px;"></a>
         </div>
       </div>
     </div>
