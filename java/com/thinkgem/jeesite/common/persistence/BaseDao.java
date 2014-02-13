@@ -264,6 +264,7 @@ public class BaseDao<T> {
 			e.printStackTrace();
 		}
 		getSession().saveOrUpdate(entity);
+
 	}
 	
 	/**

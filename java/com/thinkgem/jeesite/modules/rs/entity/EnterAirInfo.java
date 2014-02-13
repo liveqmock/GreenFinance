@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.rs.entity;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,6 +26,7 @@ public class EnterAirInfo extends IdEntity<EnterAirInfo> {
 	private AirStandardItem airStandardItem;
 	private EnterBasicInfo enterBasicInfo;
 	private Double value;
+	private Date date;
 
 	// Constructors
 
@@ -49,7 +52,7 @@ public class EnterAirInfo extends IdEntity<EnterAirInfo> {
 
 
 	@ManyToOne
-	@JoinColumn(name = "AirStandardItem", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "AirStandardItem", nullable = false)
 	public AirStandardItem getAirStandardItem() {
 		return this.airStandardItem;
 	}
@@ -60,7 +63,7 @@ public class EnterAirInfo extends IdEntity<EnterAirInfo> {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "EnterCode", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "EnterCode", nullable = false)
 	public EnterBasicInfo getEnterBasicInfo() {
 		return this.enterBasicInfo;
 	}
@@ -77,5 +80,15 @@ public class EnterAirInfo extends IdEntity<EnterAirInfo> {
 	public void setValue(Double value) {
 		this.value = value;
 	}
+	
+	@Column
+	public Date getDate(){
+		return date;
+	}
+	
+	public void setDate(Date date){
+		this.date = date;
+	}
+	
 
 }

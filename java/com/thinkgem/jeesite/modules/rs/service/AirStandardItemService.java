@@ -1,5 +1,7 @@
 package com.thinkgem.jeesite.modules.rs.service;
 
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -19,10 +21,25 @@ public class AirStandardItemService extends BaseService{
 	@Autowired
 	private AirStandardItemDAO airStandardItemDAO;
 
+	/**
+	 * 分页
+	 * @param page
+	 * @return
+	 */
 	public Page<AirStandardItem> findAll(Page<AirStandardItem> page){
 		DetachedCriteria dc = airStandardItemDAO.createDetachedCriteria();
 		dc.addOrder(Order.asc("id"));
 		return airStandardItemDAO.find(page,dc);
+	}
+	
+	/**
+	 * 无分页
+	 * @return
+	 */
+	public List<AirStandardItem> findAll(){
+		DetachedCriteria dc = airStandardItemDAO.createDetachedCriteria();
+		dc.addOrder(Order.asc("id"));
+		return airStandardItemDAO.find(new Page<AirStandardItem>(),dc).getList();
 	}
 	
 	public AirStandardItem findById(String id){

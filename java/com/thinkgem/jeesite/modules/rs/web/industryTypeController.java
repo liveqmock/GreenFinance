@@ -36,6 +36,17 @@ public class industryTypeController extends BaseController{
 		return "modules/rs/industryTypeList";
 	}
 	
+	
+	@RequestMapping(value = "listData")
+	public String listData(Model model){
+		List<IndustryType> industryTypies = industryTypeService.findAll();
+		List<IndustryType> list = Lists.newArrayList();
+		IndustryType.sortList(list, industryTypies, "0");
+		model.addAttribute("industryTypies",list);
+		return "modules/rs/selectEnter";
+	}
+
+	
 	@RequestMapping(value = "form")
 	public String form(@RequestParam(required = false) String code,@RequestParam(required = false) String parentCode,
 			IndustryType industryType,Model model){

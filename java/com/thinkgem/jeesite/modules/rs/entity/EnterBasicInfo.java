@@ -86,7 +86,7 @@ public class EnterBasicInfo extends BaseEntity<EnterBasicInfo>{
 		this.enterCode = enterCode;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IndustryType")
 	public IndustryType getIndustryType() {
 		return this.industryType;

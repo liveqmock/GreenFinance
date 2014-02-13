@@ -7,6 +7,5 @@ import com.thinkgem.jeesite.modules.rs.entity.EnterAirInfo;
 
 @Repository	
 public class EnterAirInfoDAO extends BaseDao<EnterAirInfo>{
-
 	
 }

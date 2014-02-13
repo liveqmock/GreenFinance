@@ -38,6 +38,8 @@ public class IndustryTypeService extends BaseService{
 	
 	@Transactional(readOnly = false)
 	public void save(IndustryType industryType){
+		IndustryType parent = industryType.getParent();
+		industryType.setParents(parent.getParents() + "," + parent.getIndustryCode());
 		industryTypeDAO.save(industryType);
 	}
 	

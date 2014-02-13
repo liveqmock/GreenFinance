@@ -4,15 +4,19 @@ package com.thinkgem.jeesite.modules.rs.service;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.modules.rs.dao.EnterBasicInfoDAO;
+import com.thinkgem.jeesite.modules.rs.dao.IndustryTypeDAO;
 import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
+import com.thinkgem.jeesite.modules.rs.entity.IndustryType;
 
 
 @Service
@@ -21,6 +25,9 @@ public class EnterBasicInfoService {
 	
 	@Autowired	
 	private EnterBasicInfoDAO enterBasicInfoDAO;
+	
+	@Autowired	
+	private IndustryTypeDAO industryTypeDAO;
 	
 	public EnterBasicInfo findByEnterCode(String enterCode){
 		return enterBasicInfoDAO.get(enterCode);
@@ -33,21 +40,21 @@ public class EnterBasicInfoService {
 		return enterBasicInfoDAO.find(page,dc);
 	}
 	
+	public List<EnterBasicInfo> findByIndustryCode(String industryCode){
+		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
+		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
+		dc.add(Restrictions.like("industryType.industryCode",industryCode,MatchMode.ANYWHERE));
+		dc.addOrder(Order.desc("enterCode"));
+		return enterBasicInfoDAO.find(new Page<EnterBasicInfo>(),dc).getList();
+	}
+	
+	
 	public Page<EnterBasicInfo> findByIndustryCode(Page<EnterBasicInfo> page,String industryCode){
 		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
 		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
 		dc.add(Restrictions.eq("industryType.industryCode",industryCode));
 		dc.addOrder(Order.desc("enterCode"));
 		return enterBasicInfoDAO.find(page,dc);
-	}
-	
-	
-	public List<EnterBasicInfo> findByIndustryCode(String industryCode){
-		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
-		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
-		dc.add(Restrictions.eq("industryType.industryCode",industryCode));
-		dc.addOrder(Order.desc("enterCode"));
-		return enterBasicInfoDAO.find(new Page<EnterBasicInfo>(),dc).getList();
 	}
 	
 	@Transactional(readOnly = false)

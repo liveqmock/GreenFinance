@@ -25,7 +25,11 @@ public class EnterEnvInfoController extends BaseController{
 	private IndustryTypeService	industryTypeService;
 	
 	@RequestMapping(value = "")
-	public String index(Model model){
+	public String index(@RequestParam(required = false) String enterCode,Model model,EnterBasicInfo enterBasicInfo){
+		if(enterCode != null){
+			enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
+			model.addAttribute("enterBasicInfo", enterBasicInfo);
+		}
 		return "modules/rs/enterEnvIndex";
 	}
 	

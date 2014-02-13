@@ -14,13 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-import com.thinkgem.jeesite.common.persistence.BaseEntity;
-import com.thinkgem.jeesite.modules.sys.entity.Menu;
 
 /**
  * Industrytype entity. @author MyEclipse Persistence Tools
@@ -37,6 +30,7 @@ public class IndustryType {
 	private static final long serialVersionUID = 7478904823645963961L;
 	private String industryCode;
 	private IndustryType parent;
+	private String parents;
 	private String industryName;
 	private String industryNote;
 	private Set<EnterBasicInfo> enterBasicInfos = new HashSet<EnterBasicInfo>(0);
@@ -52,9 +46,11 @@ public class IndustryType {
 	/** full constructor */
 	public IndustryType(String industryName, String industryNote,
 			IndustryType parent,
+			String parents,
 			Set<EnterBasicInfo> enterbasicinfos,
 			Set<IndustryAirStandard> industryairqualitystandards) {
 		this.industryName = industryName;
+		this.parents = parents;
 		this.parent = parent;
 		this.industryNote = industryNote;
 		this.enterBasicInfos = enterbasicinfos;
@@ -81,6 +77,16 @@ public class IndustryType {
 	public void setParent(IndustryType parent){
 		this.parent = parent;
 	}
+	
+	@Column(name = "parents")
+	public String getParents(){
+		return this.parents;
+	}
+	
+	public void setParents(String parents){
+		this.parents = parents;
+	}
+	
 	
 	@Column(name = "IndustryName", length = 30)
 	public String getIndustryName() {
@@ -119,6 +125,7 @@ public class IndustryType {
 		this.industryAirStandards = industryairqualitystandards;
 	}
 	
+
 	
 	@Override
 	public String toString() {
