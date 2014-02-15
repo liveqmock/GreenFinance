@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.rs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class IndustryTypeService extends BaseService{
 	public IndustryType findByCode(String code){
 		return industryTypeDAO.get(code);
 	}
+	
+	public Map<String, List<IndustryType>> getInderstryMap(){
+		System.out.println("正在获取InderstryMap！！！！！！！！！！");
+		return industryTypeDAO.getInderstryMap();
+	}
+	
 	
 	@Transactional(readOnly = false)
 	public void save(IndustryType industryType){
