@@ -34,15 +34,20 @@ import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
+import com.thinkgem.jeesite.modules.rs.entity.IndustryType;
+import com.thinkgem.jeesite.modules.rs.service.EnterBasicInfoService;
+import com.thinkgem.jeesite.modules.rs.service.IndustryTypeService;
 
 /**
  * 网站Controller
  * @author MySugar
  * @version 2013-1-12
  */
+/*想想这个/r连接到底应该是怎么进来的*/
 @Controller
 @RequestMapping(value = "${rsFrontPath}")
-public class RFrontController extends BaseController{
+public class RsFrontController extends BaseController{
 	
 	@Autowired
 	private ArticleService articleService;
@@ -52,6 +57,11 @@ public class RFrontController extends BaseController{
 	private CommentService commentService;
 	@Autowired
 	private CategoryService categoryService;
+	/*上面的暂时只为测试用，以后可以删掉*/
+	@Autowired
+	private IndustryTypeService industryTypeService;
+	@Autowired
+	private EnterBasicInfoService enterBasicInfoService;
 	
 	/**
 	 * 网站首页
@@ -63,6 +73,7 @@ public class RFrontController extends BaseController{
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
+		model.addAttribute("warpMap", industryTypeService.getInderstryMap());
 		return "modules/rs/front/frontIndex";
 	}
 	
@@ -89,16 +100,23 @@ public class RFrontController extends BaseController{
 	/**
 	 * 内容列表
 	 */
-	@RequestMapping(value = "list-{categoryId}${urlSuffix}")
-	public String list(@PathVariable String categoryId, @RequestParam(required=false, defaultValue="1") Integer pageNo,
+	@RequestMapping(value = "list-{indurstryCode}${urlSuffix}")
+	public String list(@PathVariable String indurstryCode, @RequestParam(required=false, defaultValue="1") Integer pageNo,
 			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
-		Category category = categoryService.get(categoryId);
-		if (category==null){
-			Site site = CmsUtils.getSite(Site.defaultSiteId());
-			model.addAttribute("site", site);
+		//想想获取到的是什么，然后返回什么
+//		//还要不要判断是一级行业还是二级行业呢
+//		
+//		model.addAttribute("indurstryList", indurstryList);
+//		//如果是一级栏目怎么样
+//		List<IndustryType> indurstryList = industryTypeService.findByParentCode(indurstryCode);
+		List<EnterBasicInfo> enterBasicInfos = enterBasicInfoService.findByIndustryCode(indurstryCode);
+		//这个获取请求的目的是显示该行业下所有的企业
+		if (enterBasicInfos.size()==0){
+			//如果这里面不含有企业返回一个页面
 			return "error/404";
 		}
-		model.addAttribute("site", category.getSite());
+		
+		//还要获取他们企业 enterbasicInfo  是通过企业的id进入他的主页
 		// 2：简介类栏目，栏目第一条内容
 		if("2".equals(category.getShowModes()) && "article".equals(category.getModule())){
 			// 如果没有子栏目，并父节点为跟节点的，栏目列表为当前栏目。

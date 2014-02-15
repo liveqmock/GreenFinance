@@ -98,5 +98,6 @@
     <function-signature>java.util.List getLinkList(java.lang.String, java.lang.String, int, java.lang.String)</function-signature>
     <example>${fnc:getLinkList(siteId, categoryId, number, param)}</example>  
   </function>
+ 
   
 </taglib>

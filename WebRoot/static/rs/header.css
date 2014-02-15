@@ -92,7 +92,7 @@ a:hover{ color:#; text-decoration:underline;}
 #warp1000 #allsortlist .navlist h3 a:hover{color:#f60;text-decoration:underline;}
 #warp1000 #allsortlist .navlist .navmore{display:none;position:absolute;left:160px;top:-30px;width:566px;border:2px solid #eb873c;background:#fafafa;z-index:0;overflow:hidden;}
 #warp1000 #allsortlist .navlist .navmore dl{float:left;width:400px;margin:-1px 0 0;padding:10px 0 5px 0;color:#333;background:#fff url(http://script.suning.cn/css/ShoppingArea/V5/images/main.png) no-repeat 10px -392px;}
-#warp1000 #allsortlist .navlist .navmore dl dt{position:relative;top:-8px;float:left;width:88px;font-weight:700;padding-left:10px;}#warp1000 #allsortlist .navlist .navmore dl dt a{color:#333;}
+#warp1000 #allsortlist .navlist .navmore dl dt{position:relative;top:-8px;float:left;width:150px;font-weight:700;padding-left:10px;}#warp1000 #allsortlist .navlist .navmore dl dt a{color:#333;}
 #warp1000 #allsortlist .navlist .navmore dl dt a:hover{color:#f60;text-decoration:underline;}
 #warp1000 #allsortlist .navlist .navmore dl dd{float:left;width:300px;line-height:14px;+padding-bottom:10px;}
 #warp1000 #allsortlist .navlist .navmore dl dd a{float:left;color:#333;padding:0 20px 0 0;margin-bottom:5px;white-space:nowrap;}#warp1000 #allsortlist .navlist .navmore dl dd a:hover{color:#f60;}
