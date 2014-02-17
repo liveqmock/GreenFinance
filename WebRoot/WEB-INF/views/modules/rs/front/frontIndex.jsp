@@ -1,19 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/modules/rs/front/include/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>首页</title>
+<title>${enterBasicInfo.enterName}</title>
 
 <meta name="decorator" content="rs_default" />
 <meta name="description" content="lsjr ${site.description}" />
 <meta name="keywords" content="lsjr ${site.keywords}" />
 <style type="text/css">
+
 /* 本例子css */
 		.picMarquee-left ,.picStatic{   overflow:hidden; position:relative;  border:1px solid #ccc;   }
 		.picMarquee-left  .hd,.picStatic .hd{ overflow:hidden;  height:30px; background:#f4f4f4; padding:0 10px;  }
 		.picMarquee-left .hd .prev,.picMarquee-left .hd .next{ display:block;  width:5px; height:9px; float:right; margin-right:5px; margin-top:10px;  overflow:hidden;
-			 cursor:pointer; background:url("../images/arrow.png") no-repeat;}
+			 cursor:pointer; }
 		.picMarquee-left .hd .next{ background-position:0 -50px;  }
 		.picMarquee-left .hd .prevStop{ background-position:-60px 0; }
 		.picMarquee-left .hd .nextStop{ background-position:-60px -50px; }
@@ -38,11 +39,9 @@
 		<div class="span4 aside">
 			<div class="picF">
 				<div class="PocN">
-					<a id="zoom1" rel="" href="/368/367892/pic.shtml"
-						zoom="http://2c.zol-img.com.cn/product/127/84/ceUIsG6vodlVw.jpg">
+					<a id="zoom1" rel="" href="/368/367892/pic.shtml">
 						<img
-						src="http://2c.zol-img.com.cn/product/127_280x210/84/ceUIsG6vodlVw.jpg"
-						itemprop="photo">
+						src="http://2c.zol-img.com.cn/product/127_280x210/84/ceUIsG6vodlVw.jpg">
 					</a>
 				</div>
 			
@@ -50,23 +49,69 @@
 		</div>
 		<div class="span8">
 		<div class="xinxi">
-				<h1>
-					<span>分析信息</span>
-				</h1>
-				<div class="clear"></div>
-                <div class="list">
-                  <ul>
-                     <li class="li1">
-                        <h2><a href="" title="">ING套现撤离亚洲 友邦保险扩大版图</a></h2>
-                        <p>ING（荷兰国际集团）为了履行即将到期的偿债协议，近期频频抛售亚洲业务，引来众多...<a href="" title="">[详细]</a></p>
-                     </li>
-                     <li><img src="images/dian.png" width="5px" height="5px" alt="" /><a href="" title="">ING套现撤离亚洲 友邦保险扩大版图</a></li>
-                     <li><img src="images/dian.png" width="5px" height="5px" alt="" /><a href="" title="">标准普尔调降西班牙多家银行信用评级</a></li>
-                     <li><img src="images/dian.png" width="5px" height="5px" alt="" /><a href="" title="">花旗集团高层地震 CEO潘伟迪与COO同时宣布辞</a></li>
-                     <li><img src="images/dian.png" width="5px" height="5px" alt="" /><a href="" title="">德银亚太区CEO：欧美银行去杠杆化对亚洲有利</a></li>
-                     <li><img src="images/dian.png" width="5px" height="5px" alt="" /><a href="" title="">德瑞强调欧盟不应匆忙推银行单一监管机制</a></li>
-                   </ul>
-                </div>
+		<div class="row">
+		<div class="span4">
+		<dl>
+			<dt>
+				企业基本信息
+			</dt>
+			<dd>
+				企业唯一标示符：${enterBasicInfo.enterCode}
+			</dd>
+			<dd>
+				行政区域编码：${enterBasicInfo.codeRegion}
+			</dd>
+			<dd>
+				法人代码：${enterBasicInfo.corpCode}
+			</dd>
+			<dd>
+				创建时间：${enterBasicInfo.createTime}
+			</dd>
+			<dd>
+				企业地址：${enterBasicInfo.enterAddress}
+			</dd>
+			<dd>
+				企业名称：${enterBasicInfo.enterName}
+			</dd>
+			<dd>
+				企业类别：${enterBasicInfo.enterType}
+			</dd>
+			
+			
+		</dl>
+			
+		</div>
+		<div class="span4">
+		<dl>
+			<dt>
+				&aacute;
+			</dt>
+			<dd>
+				传真：${enterBasicInfo.fax}
+			</dd>
+			<dd>
+				经度：${enterBasicInfo.longitude}
+			</dd>
+			<dd>
+				维度：${enterBasicInfo.latitude}
+			</dd>
+			<dd>
+				联系人：${enterBasicInfo.linkMan}
+			</dd>
+			<dd>
+				邮政编码：${enterBasicInfo.postalCode}
+			</dd>
+			<dd>
+				联系电话:${enterBasicInfo.telephone}
+			</dd>
+			<dd>
+				行业类型：${enterBasicInfo.industryType}
+			</dd>
+		</dl>
+			
+		</div>
+		</div>
+			
 		</div>
 		</div>
 	</div>

@@ -1,45 +1,48 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/modules/rs/front/include/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>${indurstry.name}</title>
+<title>${industryType.industryName}</title>
 
 <meta name="decorator" content="rs_default" />
 <meta name="description" content="lsjr ${site.description}" />
 <meta name="keywords" content="lsjr ${site.keywords}" />
+<script type="text/javascript">
+	alert("");
+</script>
 </head>
 <body>
+
 <div class="row">
 	   <div class="span2">
 		 <h4>推荐企业</h4>
 		 <ol>
-		 	<cms:frontArticleHitsTop category="${category}"/>
+		 	<li>1</li>
+		 	<li>1</li>
+		 	<li>1</li>
+		 	<li>1</li>
+		 	<li>1</li>
 		 </ol>
 	   </div>
 	   <div class="span10">
 		 <ul class="breadcrumb">
-		    <cms:frontCurrentPosition category="${category}"/>
+		 <!-- 不愿意用jstl标签了，暂时这么写 -->
+			<li><strong>当前位置：</strong><a href="${rtx}/index">首页</a></li>
+<li><span class="divider">/</span> <a href="${rtx}/list-${industryType.industryCode}${urlSuffix}">${industryType.industryName}</a></li>
 		 </ul>
 	   </div>
        <div class="span10">
-		  <h4>${category.name}</h4>
-		  <c:if test="${category.module eq 'article'}">
-			<ul><c:forEach items="${page.list}" var="article">
-				<li><span class="pull-right"><fmt:formatDate value="${article.updateDate}" pattern="yyyy.MM.dd"/></span><a href="${article.url}" style="color:${article.color}">${fns:abbr(article.title,96)}</a></li>
+		  <h4>${industryType.industryName}</h4>
+			<ul><c:forEach items="${page.list}" var="enterBasicInfo">
+				<li><span class="pull-right"></span><a href="view-${enterBasicInfo.enterCode}-1${urlSuffix}" >${fns:abbr(enterBasicInfo.enterName,96)}</a></li>
 			</c:forEach></ul>
 			<div class="pagination">${page}</div>
 			<script type="text/javascript">
 				function page(n,s){
-					location="${ctx}/list-${category.id}${urlSuffix}?pageNo="+n+"&pageSize="+s;
+					location="${rtx}/list-${industryType.industryCode}${urlSuffix}?pageNo="+n+"&pageSize="+s;
 				}
 			</script>
-		  </c:if>
-		  <c:if test="${category.module eq 'link'}">
-			<ul><c:forEach items="${page.list}" var="link">
-				<li><a href="${link.href}" target="_blank" style="color:${link.color}"><c:out value="${link.title}" /></a></li>
-			</c:forEach></ul>
-		  </c:if>
   	  </div>
    </div>
 </body>

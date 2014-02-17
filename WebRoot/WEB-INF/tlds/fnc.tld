@@ -67,6 +67,7 @@
     <example>${fnc:getCategoryListByIds(categoryIds)}</example>  
   </function>
   
+  
   <function>
     <description>获取文章</description>
     <name>getArticle</name>
