@@ -97,9 +97,11 @@ public class RsFrontController extends BaseController{
 		return "redirect:"+Global.getFrontPath()+"/list-"+firstCategoryId+Global.getUrlSuffix();
 	}
 	
+
 	/**
 	 * 内容列表
 	 */
+	/**
 	@RequestMapping(value = "list-{indurstryCode}${urlSuffix}")
 	public String list(@PathVariable String indurstryCode, @RequestParam(required=false, defaultValue="1") Integer pageNo,
 			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
@@ -199,7 +201,7 @@ public class RsFrontController extends BaseController{
 			}
 		}
 	}
-
+**/
 	/**
 	 * 内容列表（通过url自定义视图）
 	 */

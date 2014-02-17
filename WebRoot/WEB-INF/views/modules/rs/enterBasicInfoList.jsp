@@ -4,6 +4,14 @@
   <head>
   	<meta name="decorator" content="default"/>
 	<title>企业基本信息管理</title>
+	<script type="text/javascript">
+		function page(n,s){
+			$("#pageNo").val(n);
+			$("#pageSize").val(s);
+			$("#searchForm").submit();
+	    	return false;
+	    }
+	</script>
 	
   </head>
   
@@ -13,6 +21,10 @@
 		<li><a href="${ctx}/rs/enterBasicInfo/form">添加企业</a></li>
 	</ul>
 	<tags:message content="${message}"></tags:message>
+	<form:form id="searchForm" modelAttribute="link" action="${ctx}/rs/airStandardItem/" method="post" class="breadcrumb form-search">
+		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
+		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
+	</form:form>
 	<table id="contentTable" class="table table-bordered table-condensed">
 		<thead>
 			<tr>

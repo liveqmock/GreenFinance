@@ -56,9 +56,9 @@ public class EnterBasicInfoController extends BaseController{
 	
 	
 	@RequestMapping(value = "list")
-	public String list(@RequestParam(required = false) String industryCode,Model model){
+	public String list(@RequestParam(required = false) String industryCode,Model model,HttpServletRequest request,HttpServletResponse response){
 		if(industryCode != null){
-			Page<EnterBasicInfo> page= enterBasicInfoService.findByIndustryCode(new Page<EnterBasicInfo>(10),industryCode);
+			Page<EnterBasicInfo> page= enterBasicInfoService.findByIndustryCode(new Page<EnterBasicInfo>(request,response),industryCode);
 			model.addAttribute("page",page);
 		}
 		return "modules/rs/enterBasicInfoList";

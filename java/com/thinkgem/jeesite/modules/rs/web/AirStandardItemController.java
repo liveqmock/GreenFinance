@@ -1,5 +1,10 @@
 package com.thinkgem.jeesite.modules.rs.web;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +26,10 @@ public class AirStandardItemController extends BaseController{
 	@Autowired
 	private AirStandardItemService airStandardItemService;
 	
+	
 	@RequestMapping(value = {"list",""})
-	public String list(Model model){
-		Page<AirStandardItem> page = airStandardItemService.findAll(new Page<AirStandardItem>(10));
+	public String list(Model model,HttpServletRequest request, HttpServletResponse response){
+		Page<AirStandardItem> page = airStandardItemService.findAll(new Page<AirStandardItem>(request,response));
 		model.addAttribute("page", page);
 		return "modules/rs/airStandardItemList";
 	}
@@ -45,11 +51,25 @@ public class AirStandardItemController extends BaseController{
 	}
 	
 	@RequestMapping(value = "delete")
-	public String delete(@RequestParam int id,RedirectAttributes redirectAttributes){
+	public String delete(@RequestParam String id,RedirectAttributes redirectAttributes){
 		airStandardItemService.delete(id);
 		addMessage(redirectAttributes,"删除成功");
 		return "redirect:" + Global.getAdminPath() + "/rs/airStandardItem/list";
 	}
+	
+	@RequestMapping(value = "gbList")
+	public String gbList(Model model){
+		List<AirStandardItem> airStandardItems =  airStandardItemService.findAll();
+		model.addAttribute("airStandardItems", airStandardItems);
+		return "modules/rs/gbAirStandardList";
+	}
+	
+	
+	@RequestMapping(value = "gbSave")
+	public String gbSave(){
+		return "";
+	}
+	
 	
 	
 }

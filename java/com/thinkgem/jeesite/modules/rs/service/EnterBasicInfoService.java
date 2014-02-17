@@ -52,7 +52,7 @@ public class EnterBasicInfoService {
 	public Page<EnterBasicInfo> findByIndustryCode(Page<EnterBasicInfo> page,String industryCode){
 		DetachedCriteria dc = enterBasicInfoDAO.createDetachedCriteria();
 		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
-		dc.add(Restrictions.eq("industryType.industryCode",industryCode));
+		dc.add(Restrictions.like("industryType.industryCode",industryCode,MatchMode.ANYWHERE));
 		dc.addOrder(Order.desc("enterCode"));
 		return enterBasicInfoDAO.find(page,dc);
 	}

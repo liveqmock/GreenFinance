@@ -31,6 +31,7 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="user" action="${ctx}/sys/user/info" method="post" class="form-horizontal">
 		<tags:message content="${message}"/>
+		<!-- 
 		<div class="control-group">
 			<label class="control-label">归属公司:</label>
 			<div class="controls">
@@ -43,6 +44,7 @@
 				<label class="lbl">${user.office.name}</label>
 			</div>
 		</div>
+		-->
 		<div class="control-group">
 			<label class="control-label">姓名:</label>
 			<div class="controls">

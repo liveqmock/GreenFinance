@@ -34,6 +34,12 @@
 				<form:input path="itemUnit" />
 			</div>
 		</div>
+		<div class="control-group">
+			<label class="control-label">国家标准</label>
+			<div class="controls">
+				<form:input path="gbValue" />
+			</div>
+		</div>
 		<div class="form-actions">
 			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保存"/>
 			<input id="btnCancel" class="btn" type="button" value="返回" onclick="history.go(-1)"/>

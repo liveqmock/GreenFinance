@@ -70,12 +70,9 @@ public class EnterAirInfoController extends BaseController{
 			}
 			Date sqlDate = new Date(utilDate.getTime());
 			boolean result = enterAirInfoService.save(enterCodes[i], itemIds[i], Double.parseDouble(values[i]), sqlDate);
-			if(result){
-				System.out.println("save success!");
-			}else{
-				System.out.println("save failed");
+			if(!result){
+				// todo!
 			}
-			
 		}
 		return "modules/rs/enterEnvIndex";
 	}

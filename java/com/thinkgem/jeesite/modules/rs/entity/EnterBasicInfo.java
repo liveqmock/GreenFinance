@@ -43,6 +43,8 @@ public class EnterBasicInfo extends BaseEntity<EnterBasicInfo>{
 	private Integer latitude;
 	private String postalCode;
 	private String telephone;
+	private String baseImage;
+	private String logo;
 	private Set<EnterAirInfo> enterAirInfos = new HashSet<EnterAirInfo>(
 			0);
 	private String delFlag;
@@ -203,6 +205,25 @@ public class EnterBasicInfo extends BaseEntity<EnterBasicInfo>{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	
+	@Column
+	public String getBaseImage(){
+		return this.baseImage;
+	}
+	
+	public void setBaseImage(String baseImage){
+		this.baseImage = baseImage;
+	}
+	
+	@Column
+	public String getLogo(){
+		return this.logo;
+	}
+	
+	public void setLogo(String logo){
+		this.logo = logo;
+	}
+	
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "enterBasicInfo")
 	public Set<EnterAirInfo> getEnterAirInfos() {

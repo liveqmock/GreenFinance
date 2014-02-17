@@ -31,6 +31,7 @@ public class AirStandardItem extends IdEntity<AirStandardItem>{
 	private String itemName;
 	private String avarageTime;
 	private String itemUnit;
+	private Double gbValue = 0.0;
 	private Set<IndustryAirStandard> industryAirStandards = new HashSet<IndustryAirStandard>(
 			0);
 	private Set<EnterAirInfo> enterAirInfos = new HashSet<EnterAirInfo>(
@@ -88,6 +89,15 @@ public class AirStandardItem extends IdEntity<AirStandardItem>{
 
 	public void setItemUnit(String itemUnit) {
 		this.itemUnit = itemUnit;
+	}
+	
+	@Column(name="gbValue")
+	public double getGbValue() {
+		return gbValue;
+	}
+
+	public void setGbValue(Double gbValue) {
+		this.gbValue = gbValue;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "airStandardItem")

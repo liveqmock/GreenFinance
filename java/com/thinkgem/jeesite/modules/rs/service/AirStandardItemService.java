@@ -13,6 +13,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.modules.rs.dao.AirStandardItemDAO;
 import com.thinkgem.jeesite.modules.rs.entity.AirStandardItem;
+import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,6 +29,7 @@ public class AirStandardItemService extends BaseService{
 	 */
 	public Page<AirStandardItem> findAll(Page<AirStandardItem> page){
 		DetachedCriteria dc = airStandardItemDAO.createDetachedCriteria();
+		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
 		dc.addOrder(Order.asc("id"));
 		return airStandardItemDAO.find(page,dc);
 	}
@@ -38,6 +40,7 @@ public class AirStandardItemService extends BaseService{
 	 */
 	public List<AirStandardItem> findAll(){
 		DetachedCriteria dc = airStandardItemDAO.createDetachedCriteria();
+		dc.add(Restrictions.eq("delFlag",EnterBasicInfo.DEL_FLAG_NORMAL));
 		dc.addOrder(Order.asc("id"));
 		return airStandardItemDAO.find(new Page<AirStandardItem>(),dc).getList();
 	}
@@ -52,7 +55,7 @@ public class AirStandardItemService extends BaseService{
 	}
 	
 	@Transactional(readOnly = false)
-	public void delete(int id){
+	public void delete(String id){
 		airStandardItemDAO.deleteById(id);
 	}
 	

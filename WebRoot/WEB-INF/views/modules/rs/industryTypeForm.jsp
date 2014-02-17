@@ -9,7 +9,7 @@
   
   <body>
   	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/rs/enterBasicInfo">行业列表</a></li>
+		<li><a href="${ctx}/rs/industryType/">行业列表</a></li>
 		<li class="active"><a href="${ctx}/rs/industryType/form">行业添加</a></li>
 	</ul>
 	<form:form id="inputForm" modelAttribute="industryType" action="${ctx}/rs/industryType/save" method="post">
@@ -26,7 +26,7 @@
 			<div class="controls">
 				<c:choose>
 					<c:when test="${industryType.industryCode ne null }">
-						<form:input path="industryCode" disabled="true"></form:input>
+						<form:input path="industryCode"></form:input>
 					</c:when>
 					<c:otherwise>
 						<form:input path="industryCode"></form:input>
