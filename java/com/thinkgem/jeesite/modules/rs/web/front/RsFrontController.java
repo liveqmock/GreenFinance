@@ -3,6 +3,7 @@ package com.thinkgem.jeesite.modules.rs.web.front;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,10 +36,13 @@ import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.rs.entity.EnterAirInfo;
 import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
 import com.thinkgem.jeesite.modules.rs.entity.IndustryType;
+import com.thinkgem.jeesite.modules.rs.service.EnterAirInfoService;
 import com.thinkgem.jeesite.modules.rs.service.EnterBasicInfoService;
 import com.thinkgem.jeesite.modules.rs.service.IndustryTypeService;
+import com.thinkgem.jeesite.modules.rs.utils.Data2LineChart;
 
 /**
  * 网站Controller
@@ -63,6 +67,8 @@ public class RsFrontController extends BaseController{
 	private IndustryTypeService industryTypeService;
 	@Autowired
 	private EnterBasicInfoService enterBasicInfoService;
+	@Autowired
+	private EnterAirInfoService enterAirInfoService;
 	
 	/**
 	 * 网站首页
@@ -186,7 +192,19 @@ public class RsFrontController extends BaseController{
 			return "modules/rs/front/frontIndex";
 		}
 		if (contentId.equals("2")){
-				
+				List<EnterAirInfo> airInfos = enterAirInfoService.findByAirItemId("178e92d89a7140b2854996d0af097157");
+				Map<String,List> infos = new HashMap<String, List>();
+				List<String> labelList = Lists.newArrayList();
+				List<String> dataList = Lists.newArrayList();
+				for(EnterAirInfo info : airInfos){
+					labelList.add(info.getDate().toString());
+					dataList.add(info.getValue().toString());
+				}
+				infos.put("label", labelList);
+				infos.put("data",dataList);
+				String strInfo = Data2LineChart.data2Chart(infos);
+				model.addAttribute("chart",strInfo);
+
 				System.out.println("返回"+"modules/rs/front/EnAir.jsp");
 				return "modules/rs/front/EnAir";
 			}
@@ -298,5 +316,6 @@ public class RsFrontController extends BaseController{
             setTplModelAttribute(model, ca.getViewConfig());
         }
     }
+    
 	
 }

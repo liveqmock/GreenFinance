@@ -19,8 +19,9 @@ public class Data2LineChart {
 		m.remove("label");
 		Iterator<Entry<String, List>> it = m.entrySet().iterator();
 		while (it.hasNext()) {
-			Entry<String, List> key = it.next();
-			List data = m.get(key);
+			Entry<String, List> entry = it.next();
+			System.out.println(entry.getKey());
+			List data = entry.getValue();
 			StringBuffer dataset = new StringBuffer("{"
 					+ "					fillColor : \"rgba(220,220,220,0.5)\","
 					+ "					strokeColor : \"rgba(220,220,220,1)\","

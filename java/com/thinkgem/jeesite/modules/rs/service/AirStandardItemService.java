@@ -13,6 +13,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.BaseService;
 import com.thinkgem.jeesite.modules.rs.dao.AirStandardItemDAO;
 import com.thinkgem.jeesite.modules.rs.entity.AirStandardItem;
+import com.thinkgem.jeesite.modules.rs.entity.EnterAirInfo;
 import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
 
 @Service

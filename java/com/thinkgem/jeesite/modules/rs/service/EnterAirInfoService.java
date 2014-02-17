@@ -1,6 +1,7 @@
 package com.thinkgem.jeesite.modules.rs.service;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,5 +53,11 @@ public class EnterAirInfoService {
 		enterAirInfoDAO.save(enterAirInfo);
 		return true;
 	}
+	
+	
+	public List<EnterAirInfo> findByAirItemId(String itemId){
+		return enterAirInfoDAO.findByAirItem(itemId);
+	}
+	
 	
 }
