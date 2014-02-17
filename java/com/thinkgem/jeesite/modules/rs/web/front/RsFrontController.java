@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.rs.web.front;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -101,107 +102,45 @@ public class RsFrontController extends BaseController{
 	/**
 	 * 内容列表
 	 */
-	/**
-	@RequestMapping(value = "list-{indurstryCode}${urlSuffix}")
-	public String list(@PathVariable String indurstryCode, @RequestParam(required=false, defaultValue="1") Integer pageNo,
+	@RequestMapping(value = "list-{industryCode}${urlSuffix}")
+	public String list(@PathVariable String industryCode, @RequestParam(required=false, defaultValue="1") Integer pageNo,
 			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
+		System.out.println("行业列表的页面");
+		
 		//想想获取到的是什么，然后返回什么
 //		//还要不要判断是一级行业还是二级行业呢
 //		
 //		model.addAttribute("indurstryList", indurstryList);
 //		//如果是一级栏目怎么样
 //		List<IndustryType> indurstryList = industryTypeService.findByParentCode(indurstryCode);
-		List<EnterBasicInfo> enterBasicInfos = enterBasicInfoService.findByIndustryCode(indurstryCode);
+		List<EnterBasicInfo> enterBasicInfos = enterBasicInfoService.findByIndustryCode(industryCode);
+		IndustryType industryType = industryTypeService.findByCode(industryCode);
+		//总不能每个页面都要重新获取一次吧
+		model.addAttribute("warpMap", industryTypeService.getInderstryMap());
 		//这个获取请求的目的是显示该行业下所有的企业
-		if (enterBasicInfos.size()==0){
-			//如果这里面不含有企业返回一个页面
-			return "error/404";
-		}
+//		if (enterBasicInfos.size()==0){
+//			//如果这里面不含有企业返回一个页面
+//			return "error/404";
+//		}
+		//还要返回这个industry的信息
+		model.addAttribute("industryType", industryType);
+		model.addAttribute("enterBasicInfos", enterBasicInfos);
+		Page<EnterBasicInfo> page = new Page<EnterBasicInfo>(1,1,-1);
+		EnterBasicInfo enterBasicInfo = new EnterBasicInfo();
+//		Article article = new Article(category);
+		page = enterBasicInfoService.findByIndustryCode(page, industryCode);
+//		page = articleService.find(page, article, false);
+		if (page.getList().size()>0) {
+			enterBasicInfo = page.getList().get(0);
 		
+		}
+		model.addAttribute("page", page);
+		model.addAttribute("enterBasicInfo", enterBasicInfo);
 		//还要获取他们企业 enterbasicInfo  是通过企业的id进入他的主页
 		// 2：简介类栏目，栏目第一条内容
-		if("2".equals(category.getShowModes()) && "article".equals(category.getModule())){
-			// 如果没有子栏目，并父节点为跟节点的，栏目列表为当前栏目。
-			List<Category> categoryList = Lists.newArrayList();
-			if (category.getParent().getId().equals("1")){
-				categoryList.add(category);
-			}else{
-				categoryList = categoryService.findByParentId(category.getParent().getId(), category.getSite().getId());
-			}
-			model.addAttribute("category", category);
-			model.addAttribute("categoryList", categoryList);
-			// 获取文章内容
-			Page<Article> page = new Page<Article>(1, 1, -1);
-			Article article = new Article(category);
-			page = articleService.find(page, article, false);
-			if (page.getList().size()>0){
-				article = page.getList().get(0);
-				articleService.updateHitsAddOne(article.getId());
-			}
-			model.addAttribute("article", article);
-            setTplModelAttribute(model, category);
-            setTplModelAttribute(model, article.getViewConfig());
-			return "modules/cms/front/themes/"+category.getSite().getTheme()+"/"+getTpl(article);
-		}else{
-			List<Category> categoryList = categoryService.findByParentId(category.getId(), category.getSite().getId());
-			// 展现方式为1 、无子栏目或公共模型，显示栏目内容列表
-			if("1".equals(category.getShowModes())||categoryList.size()==0){
-				// 有子栏目并展现方式为1，则获取第一个子栏目；无子栏目，则获取同级分类列表。
-				if(categoryList.size()>0){
-					category = categoryList.get(0);
-				}else{
-					// 如果没有子栏目，并父节点为跟节点的，栏目列表为当前栏目。
-					if (category.getParent().getId().equals("1")){
-						categoryList.add(category);
-					}else{
-						categoryList = categoryService.findByParentId(category.getParent().getId(), category.getSite().getId());
-					}
-				}
-				model.addAttribute("category", category);
-				model.addAttribute("categoryList", categoryList);
-				// 获取内容列表
-				if ("article".equals(category.getModule())){
-					Page<Article> page = new Page<Article>(pageNo, pageSize);
-					page = articleService.find(page, new Article(category), false);
-					model.addAttribute("page", page);
-					// 如果第一个子栏目为简介类栏目，则获取该栏目第一篇文章
-					if ("2".equals(category.getShowModes())){
-						Article article = new Article(category);
-						if (page.getList().size()>0){
-							article = page.getList().get(0);
-							articleService.updateHitsAddOne(article.getId());
-						}
-						model.addAttribute("article", article);
-                        setTplModelAttribute(model, category);
-                        setTplModelAttribute(model, article.getViewConfig());
-						return "modules/cms/front/themes/"+category.getSite().getTheme()+"/"+getTpl(article);
-					}
-				}else if ("link".equals(category.getModule())){
-					Page<Link> page = new Page<Link>(1, -1);
-					page = linkService.find(page, new Link(category), false);
-					model.addAttribute("page", page);
-				}
-				String view = "/frontList";
-				if (StringUtils.isNotBlank(category.getCustomListView())){
-					view = "/"+category.getCustomListView();
-				}
-                setTplModelAttribute(model, category);
-				return "modules/cms/front/themes/"+category.getSite().getTheme()+view;
-			}
-			// 有子栏目：显示子栏目列表
-			else{
-				model.addAttribute("category", category);
-				model.addAttribute("categoryList", categoryList);
-				String view = "/frontListCategory";
-				if (StringUtils.isNotBlank(category.getCustomListView())){
-					view = "/"+category.getCustomListView();
-				}
-                setTplModelAttribute(model, category);
-				return "modules/cms/front/themes/"+category.getSite().getTheme()+view;
-			}
-		}
+		return "modules/rs/front/frontList";
+
 	}
-**/
 	/**
 	 * 内容列表（通过url自定义视图）
 	 */
@@ -225,41 +164,33 @@ public class RsFrontController extends BaseController{
 	/**
 	 * 显示内容
 	 */
-	@RequestMapping(value = "view-{categoryId}-{contentId}${urlSuffix}")
-	public String view(@PathVariable String categoryId, @PathVariable String contentId, Model model) {
-		Category category = categoryService.get(categoryId);
-		if (category==null){
-			Site site = CmsUtils.getSite(Site.defaultSiteId());
-			model.addAttribute("site", site);
+	@RequestMapping(value = "view-{enterCode}-{contentId}${urlSuffix}")
+	public String view(@PathVariable String enterCode,@PathVariable String contentId, Model model) {
+		System.out.println(enterCode+"!!!!!!!!!!!已经到达view页面了"+contentId);
+		if (enterCode==null){
 			return "error/404";
 		}
-		model.addAttribute("site", category.getSite());
-		if ("article".equals(category.getModule())){
-			// 如果没有子栏目，并父节点为跟节点的，栏目列表为当前栏目。
-			List<Category> categoryList = Lists.newArrayList();
-			if (category.getParent().getId().equals("1")){
-				categoryList.add(category);
-			}else{
-				categoryList = categoryService.findByParentId(category.getParent().getId(), category.getSite().getId());
+		
+		if (contentId.equals("1")){
+		//首先要获取企业的基本信息
+			EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
+			model.addAttribute("enterBasicInfo", enterBasicInfo);
+		//还有主页上的一部分信息
+			List<String> imagePtah = new ArrayList<String>();
+			List<EnterBasicInfo> enterBasicInfos = enterBasicInfoService.findByIndustryCode(enterBasicInfo.getIndustryType().getIndustryCode());
+			for (int i = 0; i < enterBasicInfos.size(); i++) {
+				//把写入ImagePath
+//				imagePtah.add(enterBasicInfos.get(i).)
 			}
-			// 获取文章内容
-			Article article = articleService.get(contentId);
-			if (article==null || !Article.DEL_FLAG_NORMAL.equals(article.getDelFlag())){
-				return "error/404";
-			}
-			// 文章阅读次数+1
-			articleService.updateHitsAddOne(contentId);
-			// 获取推荐文章列表
-			List<Object[]> relationList = articleService.findByIds(article.getArticleData().getRelation());
-			// 将数据传递到视图
-			model.addAttribute("category", article.getCategory());
-			model.addAttribute("categoryList", categoryList);
-			model.addAttribute("article", article);
-			model.addAttribute("relationList", relationList); 
-            setTplModelAttribute(model, article.getCategory());
-            setTplModelAttribute(model, article.getViewConfig());
-			return "modules/cms/front/themes/"+category.getSite().getTheme()+"/"+getTpl(article);
+			System.out.println("返回"+"modules/rs/front/frontIndex");
+			return "modules/rs/front/frontIndex";
 		}
+		if (contentId.equals("2")){
+				
+				System.out.println("返回"+"modules/rs/front/EnAir.jsp");
+				return "modules/rs/front/EnAir";
+			}
+		
 		return "error/404";
 	}
 	

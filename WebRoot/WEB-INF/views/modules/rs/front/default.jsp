@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <!-- 下面引用总标签库文件  包括了jstl、shiro、自定义标签、全局变量等 -->
-<%@ include file="/WEB-INF/views/modules/cms/front/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/modules/rs/front/include/taglib.jsp"%>
 <!-- sitemesh 标签库文件 -->
 <%@ taglib prefix="sitemesh"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
@@ -30,10 +30,10 @@
 	<div class="header">
 		<div class="wrap">
 			<a href="#" title="" target="_blank"><img
-				src="${ctxStatic}/rs/ad1.jpg" width="1004" height="40" /></a>
+				src="${ctxStaticFront}/ad1.jpg" width="1004" height="40" /></a>
 			<div class="search_box">
 				<a href="#" title="" target="_blank"><img
-					src="${ctxStatic}/rs/logo.jpg" width="389" height="53" alt=""
+					src="${ctxStaticFront}/logo.jpg" width="389" height="53" alt=""
 					class="fl" /></a>
 				<div class="search">
 					<div id="lenu1">
@@ -98,7 +98,7 @@
 								
 								<dd>
 									<a 
-										href="${rtx}/view-${thirdIndurstry.industryCode}${urlSuffix}"
+										href="${rtx}/list-${thirdIndurstry.industryCode}${urlSuffix}"
 										title="${thirdIndurstry.industryName }" target="_blank">${thirdIndurstry.industryName }</a>
 								</dd>
 								</c:forEach>
@@ -108,6 +108,7 @@
 				</div>	
 			</div>
 			</c:forEach>
+			<!-- 以下的就可以删除了 -->
 					<!-- 一级行业 -->
 					<div class="navlist icon01" style="z-index: 0;">
 
@@ -770,8 +771,9 @@
 		<div class="nav">
 			<div class="wrap">
 				<ul class="nav_left">
-					<li><a href="#" title="" target="_blank">首 页</a></li>
-					<li><a href="#" title="" target="_blank">大气环境</a></li>
+				<!-- 这个地方需要有企业的id才能够写url -->
+					<li><a href="${rtx}" title="" target="_blank">首 页</a></li>
+					<li><a href="view-${enterBasicInfo.enterCode}-2${urlSuffix}" title="" target="_blank">大气环境</a></li>
 					<li><a href="#" title="" target="_blank">水环境</a></li>
 					<li><a href="#" title="" target="_blank">噪声环境</a></li>
 					<li><a href="#" title="" target="_blank">固体废气</a></li>
