@@ -7,15 +7,7 @@
 	<meta name="decorator" content="rs_default" />
 	<meta name="description" content="lsjr ${site.description}" />
 	<meta name="keywords" content="lsjr ${site.keywords}" />
-	<script  type="text/javascript">
-		$(document).ready(function(){
-			alert("fjdk");
-			var lineChartData = ${chart};
-			alert(lineChartData);
-			var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
-			
-		});
-	</script>
+	
 	<meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
 </head>
 
@@ -24,5 +16,10 @@
 		这是空气绘图页面！！
 	</h1>
 			<canvas id="canvas" height="450" width="600"></canvas>
+			<script  type="text/javascript">
+				var lineChartData = {scaleOverride : false,labels : ["2014-01-01","2014-01-01","2014-01-02",],datasets : [{					fillColor : "rgba(220,220,220,0.5)",					strokeColor : "rgba(220,220,220,1)",					pointColor : "rgba(220,220,220,1)",					pointStrokeColor : "#fff",					data : [1.0,1.0,2.0,]				},]};
+				//alert(lineChartData);
+				new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+			</script>
 </body>
 </html>

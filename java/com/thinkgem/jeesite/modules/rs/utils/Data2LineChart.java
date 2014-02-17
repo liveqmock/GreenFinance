@@ -8,11 +8,12 @@ import java.util.Map.Entry;
 public class Data2LineChart {
 	public static String data2Chart(Map<String, List> m) {
 		String lineChartData = new String();
-		String scaleOverride = "scaleOverride : false,";
-		StringBuffer labels = new StringBuffer("labels : [\"");
+		String scaleOverride = "{scaleOverride : false,";
+		StringBuffer labels = new StringBuffer("labels : [");
 		StringBuffer datasets = new StringBuffer("datasets : [");
 		List label = m.get("label");
 		for (int i = 0; i < label.size(); i++) {
+			labels.append("\"");
 			labels.append(label.get(i) + "\",");
 		}
 		labels.append("],");
@@ -33,7 +34,9 @@ public class Data2LineChart {
 			dataset.append("]" + "				},");
 			datasets.append(dataset + "]");
 		}
+		
 		lineChartData = scaleOverride + labels + datasets;
+		lineChartData += "}";
 		System.out.println(lineChartData);
 		return lineChartData;
 	}
