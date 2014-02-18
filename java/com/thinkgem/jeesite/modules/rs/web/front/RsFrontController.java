@@ -36,12 +36,18 @@ import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.rs.entity.AirStandardItem;
 import com.thinkgem.jeesite.modules.rs.entity.EnterAirInfo;
 import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
+import com.thinkgem.jeesite.modules.rs.entity.EnterSolidInfo;
 import com.thinkgem.jeesite.modules.rs.entity.IndustryType;
+import com.thinkgem.jeesite.modules.rs.entity.SolidStandardItem;
+import com.thinkgem.jeesite.modules.rs.service.AirStandardItemService;
 import com.thinkgem.jeesite.modules.rs.service.EnterAirInfoService;
 import com.thinkgem.jeesite.modules.rs.service.EnterBasicInfoService;
+import com.thinkgem.jeesite.modules.rs.service.EnterSolidInfoService;
 import com.thinkgem.jeesite.modules.rs.service.IndustryTypeService;
+import com.thinkgem.jeesite.modules.rs.service.SolidStandardItemService;
 import com.thinkgem.jeesite.modules.rs.utils.Data2LineChart;
 
 /**
@@ -69,6 +75,12 @@ public class RsFrontController extends BaseController{
 	private EnterBasicInfoService enterBasicInfoService;
 	@Autowired
 	private EnterAirInfoService enterAirInfoService;
+	@Autowired
+	private AirStandardItemService airStandardItemService;
+	@Autowired
+	private SolidStandardItemService solidStandardItemService;
+	@Autowired
+	private EnterSolidInfoService enterSolidInfoService;
 	
 	/**
 	 * 网站首页
@@ -158,11 +170,11 @@ public class RsFrontController extends BaseController{
 		if (enterCode==null){
 			return "error/404";
 		}
-		
-		if (contentId.equals("1")){
 		//首先要获取企业的基本信息
-			EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
-			model.addAttribute("enterBasicInfo", enterBasicInfo);
+		EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
+		model.addAttribute("enterBasicInfo", enterBasicInfo);
+		if (contentId.equals("1")){
+			
 			model.addAttribute("warpMap", industryTypeService.getInderstryMap());
 		//还有主页上的一部分信息
 			List<String> imagePtah = new ArrayList<String>();
@@ -175,12 +187,46 @@ public class RsFrontController extends BaseController{
 			return "modules/rs/front/frontIndex";
 		}
 		if (contentId.equals("2")){
-				List<EnterAirInfo> airInfos = enterAirInfoService.findByAirItemId("178e92d89a7140b2854996d0af097157");
+				List<AirStandardItem> airItems = airStandardItemService.findAll();
+				List<List<EnterAirInfo>> airInfoss = Lists.newArrayList();
+				List<String> charts = Lists.newArrayList();
+				for(AirStandardItem item : airItems){
+					List<EnterAirInfo> airInfos = enterAirInfoService.findByAirItemId(item.getId());
+					Map<String,List> infos = new HashMap<String, List>();
+					List<String> labelList = Lists.newArrayList();
+					List<String> dataList = Lists.newArrayList();
+					List<String> dataList2 = Lists.newArrayList();
+					for(EnterAirInfo info : airInfos){
+						labelList.add(info.getDate().toString());
+						dataList.add(info.getValue().toString());
+						dataList2.add("1");
+					}
+					infos.put("label", labelList);
+					infos.put("standard", dataList2);
+					infos.put("fact1",dataList);
+					String strInfo = Data2LineChart.data2Chart(infos);
+					charts.add(strInfo);
+					airInfoss.add(airInfos);
+				}
+				
+				model.addAttribute("charts", charts);
+				model.addAttribute("airInfoss", airInfoss);
+//				model.addAttribute("chart",strInfo);
+				model.addAttribute("lineOptions",Data2LineChart.LINEOPTIONS);
+				System.out.println("返回"+"modules/rs/front/EnAir.jsp");
+				return "modules/rs/front/EnAir";
+			}
+		if (contentId.equals("5")){
+			List<SolidStandardItem> solidStandardItems = solidStandardItemService.findAll();
+			List<List<EnterSolidInfo>> solidInfoss = Lists.newArrayList();
+			List<String> charts = Lists.newArrayList();
+			for(SolidStandardItem item : solidStandardItems){
+				List<EnterSolidInfo> solidInfos = enterSolidInfoService.findBySolidItemId(item.getId());
 				Map<String,List> infos = new HashMap<String, List>();
 				List<String> labelList = Lists.newArrayList();
 				List<String> dataList = Lists.newArrayList();
 				List<String> dataList2 = Lists.newArrayList();
-				for(EnterAirInfo info : airInfos){
+				for(EnterSolidInfo info : solidInfos){
 					labelList.add(info.getDate().toString());
 					dataList.add(info.getValue().toString());
 					dataList2.add("1");
@@ -189,17 +235,18 @@ public class RsFrontController extends BaseController{
 				infos.put("standard", dataList2);
 				infos.put("fact1",dataList);
 				String strInfo = Data2LineChart.data2Chart(infos);
-				List<String> charts = new ArrayList<String>();
 				charts.add(strInfo);
-				model.addAttribute("charts", charts);
-				System.out.println(strInfo);
-				model.addAttribute("airInfos", airInfos);
-//				model.addAttribute("chart",strInfo);
-				model.addAttribute("lineOptions",Data2LineChart.LINEOPTIONS);
-				System.out.println("返回"+"modules/rs/front/EnAir.jsp");
-				return "modules/rs/front/EnAir";
+				solidInfoss.add(solidInfos);
 			}
-		
+			
+			model.addAttribute("charts", charts);
+			model.addAttribute("solidInfoss", solidInfoss);
+//			model.addAttribute("chart",strInfo);
+			model.addAttribute("lineOptions",Data2LineChart.LINEOPTIONS);
+			System.out.println(enterCode+enterBasicInfo.getEnterName());
+			System.out.println("返回"+"modules/rs/front/EnSolid.jsp");
+			return "modules/rs/front/EnSolid";
+		}
 		return "error/404";
 	}
 	

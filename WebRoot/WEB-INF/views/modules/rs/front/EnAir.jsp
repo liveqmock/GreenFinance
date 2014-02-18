@@ -13,25 +13,25 @@
 
 <body>
 	<h1>
-		这是空气绘图页面！！
+		${enterBasicInfo.enterName}--空气环境
 	</h1>
-	<c:forEach  items="${charts}" var="chartj" varStatus="idx" >
+	<c:forEach  items="${charts}" var="chartj" varStatus="idx" step="2" >
 		<div class="row">
 			<div class="span6" style="text-align:center">
 					<dl>
 						<dt >
-							图表${idx.index }
+							图表${airInfoss[idx.index][0].airStandardItem.itemName}单位：${airInfoss[idx.index][0].airStandardItem.itemUnit}
 						</dt>
 						<dd>
 						<canvas id="canvas${idx.index}" height="300" width="300" ></canvas>
 						</dd>
 					</dl>
 				</div>
-				<c:if test="!${idx.last}">
-				<div class="span6">
+				<c:if test="${not empty charts[idx.index+1]}">
+				<div class="span6" style="text-align:center">
 					<dl>
 						<dt>
-							图表${idx.index }
+							图表${airInfoss[idx.index+1][0].airStandardItem.itemName}单位：${airInfoss[idx.index][0].airStandardItem.itemUnit}
 						</dt>
 						<dd>
 						<canvas id="canvas${idx.index+1}" height="300" width="300" ></canvas>
