@@ -15,11 +15,46 @@
 	<h1>
 		这是空气绘图页面！！
 	</h1>
-			<canvas id="canvas" height="450" width="600"></canvas>
+		
+			<div class="row">
+				<div class="span4">
+					<dl>
+						<dt style="text-align:center">
+							图表
+						</dt>
+						<dd>
+						<canvas id="canvas" height="300" width="300"></canvas>
+						</dd>
+					</dl>
+				</div>
+				<div class="span4">
+					<dl>
+						<dt>
+							图表
+						</dt>
+						<dd>
+						<canvas id="canvas2" height="300" width="300"></canvas>
+						</dd>
+					</dl>
+				</div>
+				<div class="span4">
+					<dl>
+						<dt>
+							图表
+						</dt>
+						<dd>
+						<canvas id="canvas3" height="100" width="300"></canvas>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		
 			<script  type="text/javascript">
 				var lineChartData = ${chart};
 				//alert(lineChartData);
 				new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+				new Chart(document.getElementById("canvas2").getContext("2d")).Line(lineChartData);
+				new Chart(document.getElementById("canvas3").getContext("2d")).Line(lineChartData);
 			</script>
 </body>
 </html>

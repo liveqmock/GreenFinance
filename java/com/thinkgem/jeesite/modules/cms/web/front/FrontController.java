@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.thinkgem.jeesite.common.mapper.JsonMapper;
+
+import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,8 @@ import com.thinkgem.jeesite.modules.cms.service.CategoryService;
 import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
+import com.thinkgem.jeesite.modules.rs.service.EnterBasicInfoService;
 
 /**
  * 网站Controller
@@ -57,7 +61,8 @@ public class FrontController extends BaseController{
 	private CommentService commentService;
 	@Autowired
 	private CategoryService categoryService;
-	
+	@Autowired
+	private EnterBasicInfoService enterBasicInfoService;
 	/**
 	 * 网站首页
 	 * 设置主题用到的
@@ -307,6 +312,8 @@ public class FrontController extends BaseController{
 		model.addAttribute("site", site);
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontMap";
 	}
+	
+
 
     private String getTpl(Article article){
         if(StringUtils.isBlank(article.getCustomContentView())){

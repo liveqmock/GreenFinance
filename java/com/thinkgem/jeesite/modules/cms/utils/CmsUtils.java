@@ -190,6 +190,7 @@ public class CmsUtils {
 	 * @return
 	 */
 	public static List<Link> getLinkList(String siteId, String categoryId, int number, String param){
+		System.out.println("获取连接列表正在执行");
 		Page<Link> page = new Page<Link>(1, number, -1);
 		Link link = new Link(new Category(categoryId, new Site(siteId)));
 		if (StringUtils.isNotBlank(param)){

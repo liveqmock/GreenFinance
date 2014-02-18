@@ -9,6 +9,7 @@
 <%@ taglib prefix="cms" tagdir="/WEB-INF/tags/cms" %>
 <!-- 层级的获取路径（修改了这个文件的编码方式-。-） -->
 <c:set var="ctx" value="${pageContext.request.contextPath}${fns:getFrontPath()}"/>
+<c:set var="catx" value="${pageContext.request.contextPath}${fns:getAdminPath()}"/>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static"/>
 <c:set var="ctxStaticFront" value="${ctxStatic}/modules/cms/front"/>
 <c:set var="ctxStaticTheme" value="${ctxStaticFront}/themes/${site.theme}"/>
