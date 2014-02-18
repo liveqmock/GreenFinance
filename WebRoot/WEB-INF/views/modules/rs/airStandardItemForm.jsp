@@ -4,6 +4,12 @@
   <head>
   	<meta name="decorator" content="default"/>
 	<title>空气质量指标信息管理</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#inputForm").validate({
+			});
+		});
+	</script>
 	
   </head>
   
@@ -18,20 +24,20 @@
 		<div class="control-group">
 			<label class="control-label">指标项名称</label>
 			<div class="controls">
-				<form:input path="itemName" />
+				<form:input path="itemName" class="required"/>
 				
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">平均时间</label>
 			<div class="controls">
-				<form:input path="avarageTime"/>
+				<form:input path="avarageTime" class="required"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">单位</label>
 			<div class="controls">
-				<form:input path="itemUnit" />
+				<form:input path="itemUnit" class="required"/>
 			</div>
 		</div>
 		<div class="control-group">

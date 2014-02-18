@@ -5,6 +5,12 @@
 <head>
 	<title>企业环境信息管理</title>
 	<meta name="decorator" content="default"/>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#listForm").validate({
+			});
+		});
+	</script>
 </head>
 <body>
 
@@ -34,8 +40,7 @@
 			<span class="span3">企业代码: <b id="enterCode">${enterBasicInfo.enterCode}</b></span>
 			<span class="span3">企业名称: ${enterBasicInfo.enterName}</span>
 			<span class="span4">
-				日期:
-				<input id="selectDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
+				日期:<input id="selectDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
 						value="<fmt:formatDate value="${article.createDate}" pattern="yyyy-MM-dd"/>"
 						onclick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false});"/>
 			</span>
@@ -62,7 +67,7 @@
 							<input type="hidden" name="enterCodes" value="${enterBasicInfo.enterCode}"/>
 							<input type="hidden" name="itemIds" value="${solidStandardItem.id}"/>
 							<input id="date" type="hidden" name="date"/>
-							<input type="text" name="values" value="${menu.sort}" style="width:50px;margin:0;padding:0;text-align:center;">
+							<input type="text" name="values" value="0.0" class="required" style="width:50px;margin:0;padding:0;text-align:center;">
 						</td>
 						<td>${solidStandardItem.itemUnit }</td>
 					</tr> 
@@ -74,7 +79,7 @@
 		<input id="btnSubmit" class="btn" type="button" value="保存" onclick="save();"/>
 		<script type="text/javascript">
 			function save(){
-				if(($("#selectDate").val() == null || $("selectDate").val() == "") ||
+				if(($("#selectDate").val() == null || $("#selectDate").val() == "") ||
 						($("#enterCode").html() == null || $("#enterCode").html()=="")){
 					alert("企业与日期都不能为空！");
 				}else{

@@ -5,6 +5,13 @@
   	<meta name="decorator" content="default"/>
 	<title>固体污染指标信息管理</title>
 	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#inputForm").validate({
+			});
+		});
+	</script>
+	
   </head>
   
   <body>
@@ -18,7 +25,7 @@
 		<div class="control-group">
 			<label class="control-label">指标项名称</label>
 			<div class="controls">
-				<form:input path="itemName" />
+				<form:input path="itemName" class="required"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -30,7 +37,7 @@
 		<div class="control-group">
 			<label class="control-label">单位</label>
 			<div class="controls">
-				<form:input path="itemUnit" />
+				<form:input path="itemUnit" class="required"/>
 			</div>
 		</div>
 		<div class="control-group">

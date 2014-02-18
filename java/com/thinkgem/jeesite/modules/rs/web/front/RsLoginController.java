@@ -11,6 +11,8 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.rs.entity.EnterBasicInfo;
 import com.thinkgem.jeesite.modules.rs.service.EnterBasicInfoService;
 import com.thinkgem.jeesite.modules.rs.service.IndustryTypeService;
+import com.thinkgem.jeesite.modules.sys.entity.User;
+import com.thinkgem.jeesite.modules.sys.service.SystemService;
 
 @Controller
 public class RsLoginController extends BaseController {
@@ -19,6 +21,10 @@ public class RsLoginController extends BaseController {
 	EnterBasicInfoService enterBasicInfoService;
 	@Autowired
 	IndustryTypeService industryTypeService;
+	
+	@Autowired
+	private SystemService systemService;
+	
 	/**
 	 * 管理登录
 	 */
@@ -26,9 +32,13 @@ public class RsLoginController extends BaseController {
 	public String login(@RequestParam String username,@RequestParam String password,@RequestParam String type, Model model) {
 		System.out.println(username+password+type+"----");
 		System.out.println("测试ing");
-		EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode("09");
-		model.addAttribute("enterBasicInfo", enterBasicInfo);
-		model.addAttribute("warpMap", industryTypeService.getInderstryMap());
-		return "modules/rs/front/frontIndex";
+		User user =  systemService.getUserByLoginName(username);
+		if(SystemService.validatePassword(password, user.getPassword())){
+			EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode(user.getRemarks());
+			model.addAttribute("enterBasicInfo", enterBasicInfo);
+			model.addAttribute("warpMap", industryTypeService.getInderstryMap());
+			return "modules/rs/front/frontIndex";
+		}
+		return "modules/cms/cmsIndex";
 	}
 }

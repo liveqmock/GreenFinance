@@ -62,7 +62,7 @@
 							<input type="hidden" name="enterCodes" value="${enterBasicInfo.enterCode}"/>
 							<input type="hidden" name="itemIds" value="${airStandardItem.id}"/>
 							<input id="date" type="hidden" name="date"/>
-							<input type="text" name="values" value="${menu.sort}" style="width:50px;margin:0;padding:0;text-align:center;">
+							<input type="text" name="values" value="0.0" style="width:50px;margin:0;padding:0;text-align:center;">
 						</td>
 						<td>${airStandardItem.itemUnit }</td>
 					</tr>
@@ -74,7 +74,7 @@
 		<input id="btnSubmit" class="btn" type="button" value="保存" onclick="save();"/>
 		<script type="text/javascript">
 			function save(){
-				if(($("#selectDate").val() == null || $("selectDate").val() == "") ||
+				if(($("#selectDate").val() == null || $("#selectDate").val() == "") ||
 						($("#enterCode").html() == null || $("#enterCode").html()=="")){
 					alert("企业与日期都不能为空！");
 				}else{
