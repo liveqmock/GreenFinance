@@ -15,46 +15,38 @@
 	<h1>
 		这是空气绘图页面！！
 	</h1>
-		
-			<div class="row">
-				<div class="span4">
+	<c:forEach  items="${charts}" var="chartj" varStatus="idx" >
+		<div class="row">
+			<div class="span6" style="text-align:center">
 					<dl>
-						<dt style="text-align:center">
-							图表
+						<dt >
+							图表${idx.index }
 						</dt>
 						<dd>
-						<canvas id="canvas" height="300" width="300"></canvas>
+						<canvas id="canvas${idx.index}" height="300" width="300" ></canvas>
 						</dd>
 					</dl>
 				</div>
-				<div class="span4">
-					<dl>
-						<dt>
-							图表
-						</dt>
-						<dd>
-						<canvas id="canvas2" height="300" width="300"></canvas>
-						</dd>
-					</dl>
-				</div>
-				<div class="span4">
+				<c:if test="!${idx.last}">
+				<div class="span6">
 					<dl>
 						<dt>
-							图表
+							图表${idx.index }
 						</dt>
 						<dd>
-						<canvas id="canvas3" height="100" width="300"></canvas>
+						<canvas id="canvas${idx.index+1}" height="300" width="300" ></canvas>
 						</dd>
 					</dl>
 				</div>
-			</div>
+				</c:if>
+		</div>
+	</c:forEach>
 		
 			<script  type="text/javascript">
-				var lineChartData = ${chart};
-				//alert(lineChartData);
-				new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
-				new Chart(document.getElementById("canvas2").getContext("2d")).Line(lineChartData);
-				new Chart(document.getElementById("canvas3").getContext("2d")).Line(lineChartData);
+			<c:forEach items="${charts}" var="chartj" varStatus="idx">
+			
+				var myLine = new Chart(document.getElementById("canvas${idx.index}").getContext("2d")).Line(${chartj},${lineOptions});
+			</c:forEach>
 			</script>
 </body>
 </html>

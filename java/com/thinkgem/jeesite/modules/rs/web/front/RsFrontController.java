@@ -179,19 +179,23 @@ public class RsFrontController extends BaseController{
 				Map<String,List> infos = new HashMap<String, List>();
 				List<String> labelList = Lists.newArrayList();
 				List<String> dataList = Lists.newArrayList();
-				List<String> standardList = Lists.newArrayList();
-				String standard = Double.toString(airInfos.get(0).getAirStandardItem().getGbValue());
+				List<String> dataList2 = Lists.newArrayList();
 				for(EnterAirInfo info : airInfos){
 					labelList.add(info.getDate().toString());
 					dataList.add(info.getValue().toString());
-					standardList.add(standard);
+					dataList2.add("1");
 				}
 				infos.put("label", labelList);
-				infos.put("data",dataList);
-				infos.put("standard",standardList);
+				infos.put("standard", dataList2);
+				infos.put("fact1",dataList);
 				String strInfo = Data2LineChart.data2Chart(infos);
-				model.addAttribute("chart",strInfo);
-
+				List<String> charts = new ArrayList<String>();
+				charts.add(strInfo);
+				model.addAttribute("charts", charts);
+				System.out.println(strInfo);
+				model.addAttribute("airInfos", airInfos);
+//				model.addAttribute("chart",strInfo);
+				model.addAttribute("lineOptions",Data2LineChart.LINEOPTIONS);
 				System.out.println("返回"+"modules/rs/front/EnAir.jsp");
 				return "modules/rs/front/EnAir";
 			}
