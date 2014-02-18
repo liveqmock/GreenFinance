@@ -279,19 +279,20 @@ h2 {
 					<h4>
 						用户登录
 					</h4>
+					<form action="${ctx}/rs-login" method="post">
 					<div style="margin-top: 20px; margin-left: 15px">
-						账&nbsp;&nbsp;&nbsp;&nbsp;户： <input type="text" name="LoginName" tabindex="1"
+						账&nbsp;&nbsp;&nbsp;&nbsp;户： <input type="text" name="username" tabindex="1"
 							class="ipt-t no-ime" style="width: 122px; height: 18px">
 					</div>
 					<div style="margin-top: 4px; margin-bottom: 8px; margin-left: 15px">
-						密&nbsp;&nbsp;&nbsp;&nbsp;码： <input type="password" name="Password"
+						密&nbsp;&nbsp;&nbsp;&nbsp;码： <input type="password" name="password"
 							tabindex="1" class="ipt-t no-ime"
 							style="width: 122px; height: 18px">
 					</div>
 					<div style="margin-top: 4px; margin-bottom: 8px; margin-left: 15px">
-						<input type="radio" name="sex" value="male" /> 企业 <input
-							type="radio" name="sex" value="female" /> 银行 
-						<input type="radio" name="sex" value="male" /> 个人 
+						<input type="radio" name="type" value="enter" checked="checked"/> 企业 <input
+							type="radio" name="type" value="bank" /> 银行 
+						<input type="radio" name="type" value="person" /> 个人 
 					</div>
 
 					<div
@@ -301,6 +302,7 @@ h2 {
 							type="reset" value="重置" name="reset"
 							style="border-bottom: 0px; border-left: 0px; width: 48px; height: 24px; border-top: 0px; border-right: 0px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -363,7 +365,7 @@ h2 {
 									href="${article.url}" style="color:${article.color}">${fns:abbr(article.title,28)}</a></li>
 							 -->
 							<li style="float:left;">
-								<div class="pic"><a href="${article.url}" target="_blank"><img src="${article.image}" /></a></div>
+								<div class="pic"><a href="${article.url}" target="_blank"><img src="/jeetest/${article.image}" /></a></div>
 								<div class="title"><a href="${article.url}" target="_blank">${fns:abbr(article.title,16)}</a></div>
 							</li>
 							</c:forEach>
@@ -459,40 +461,14 @@ h2 {
 			
 			<div class="bd">
 				<ul class="picList">
-					<!-- 以后的标准代码 //还不知道怎么获取linklist
-									<c:forEach items="${fnc:getLinkList(site.id, '463dfb061fa847dca04cd86b55a0a373', 8, '')}"
-									var="article">
-									<li><div class="pic"><a href="${link.url}" target="_blank"><img src="${article.image}" /></a></div>
+					<!-- 以后的标准代码 //还不知道怎么获取linklist -->
+									<c:forEach items="${fnc:getLinkList(site.id, '18', 6, '')}"
+									var="link">
+									<li><div class="pic"><a href="${link.href}" target="_blank"><img src="${link.image}" /></a></div>
 										<div class="title">
-											<a href="${link.url}" target="_blank">${article.title}</a>
 										</div>
 									</li>
 									</c:forEach>
-									 -->
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic1.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图1</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic2.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图2</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic3.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图3</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic4.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图4</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic5.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图5</a></div>
-					</li>
-					<li>
-						<div class="pic"><a href="http://www.SuperSlide2.com" target="_blank"><img src="images/pic6.jpg" /></a></div>
-						<div class="title"><a href="http://www.SuperSlide2.com" target="_blank">效果图6</a></div>
-					</li>
 				</ul>
 			</div>
 		</div>

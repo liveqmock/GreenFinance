@@ -147,31 +147,13 @@ public class RsFrontController extends BaseController{
 		return "modules/rs/front/frontList";
 
 	}
-	/**
-	 * 内容列表（通过url自定义视图）
-	 */
-	@RequestMapping(value = "listc-{categoryId}-{customView}${urlSuffix}")
-	public String listCustom(@PathVariable String categoryId, @PathVariable String customView, @RequestParam(required=false, defaultValue="1") Integer pageNo,
-			@RequestParam(required=false, defaultValue="15") Integer pageSize, Model model) {
-		Category category = categoryService.get(categoryId);
-		if (category==null){
-			Site site = CmsUtils.getSite(Site.defaultSiteId());
-			model.addAttribute("site", site);
-			return "error/404";
-		}
-		model.addAttribute("site", category.getSite());
-		List<Category> categoryList = categoryService.findByParentId(category.getId(), category.getSite().getId());
-		model.addAttribute("category", category);
-		model.addAttribute("categoryList", categoryList);
-        setTplModelAttribute(model, category);
-		return "modules/cms/front/themes/"+category.getSite().getTheme()+"/frontListCategory"+customView;
-	}
 
 	/**
 	 * 显示内容
 	 */
 	@RequestMapping(value = "view-{enterCode}-{contentId}${urlSuffix}")
 	public String view(@PathVariable String enterCode,@PathVariable String contentId, Model model) {
+		model.addAttribute("warpMap", industryTypeService.getInderstryMap());
 		System.out.println(enterCode+"!!!!!!!!!!!已经到达view页面了"+contentId);
 		if (enterCode==null){
 			return "error/404";
@@ -181,6 +163,7 @@ public class RsFrontController extends BaseController{
 		//首先要获取企业的基本信息
 			EnterBasicInfo enterBasicInfo = enterBasicInfoService.findByEnterCode(enterCode);
 			model.addAttribute("enterBasicInfo", enterBasicInfo);
+			model.addAttribute("warpMap", industryTypeService.getInderstryMap());
 		//还有主页上的一部分信息
 			List<String> imagePtah = new ArrayList<String>();
 			List<EnterBasicInfo> enterBasicInfos = enterBasicInfoService.findByIndustryCode(enterBasicInfo.getIndustryType().getIndustryCode());
@@ -212,110 +195,7 @@ public class RsFrontController extends BaseController{
 		return "error/404";
 	}
 	
-	/**
-	 * 内容评论
-	 */
-	@RequestMapping(value = "comment", method=RequestMethod.GET)
-	public String comment(String theme, Comment comment, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<Comment> page = new Page<Comment>(request, response);
-		Comment c = new Comment();
-		c.setCategory(comment.getCategory());
-		c.setContentId(comment.getContentId());
-		c.setDelFlag(Comment.DEL_FLAG_NORMAL);
-		page = commentService.find(page, c);
-		model.addAttribute("page", page);
-		model.addAttribute("comment", comment);
-		return "modules/cms/front/themes/"+theme+"/frontComment";
-	}
-	
-	/**
-	 * 内容评论保存
-	 */
-	@ResponseBody
-	@RequestMapping(value = "comment", method=RequestMethod.POST)
-	public String commentSave(Comment comment, String validateCode,@RequestParam(required=false) String replyId, HttpServletRequest request) {
-		if (StringUtils.isNotBlank(validateCode)){
-			if (ValidateCodeServlet.validate(request, validateCode)){
-				if (StringUtils.isNotBlank(replyId)){
-					Comment replyComment = commentService.get(replyId);
-					if (replyComment != null){
-						comment.setContent("<div class=\"reply\">"+replyComment.getName()+":<br/>"
-								+replyComment.getContent()+"</div>"+comment.getContent());
-					}
-				}
-				comment.setIp(request.getRemoteAddr());
-				comment.setCreateDate(new Date());
-				comment.setDelFlag(Comment.DEL_FLAG_AUDIT);
-				commentService.save(comment);
-				return "{result:1, message:'提交成功。'}";
-			}else{
-				return "{result:2, message:'验证码不正确。'}";
-			}
-		}else{
-			return "{result:2, message:'验证码不能为空。'}";
-		}
-	}
-	
-	/**
-	 * 站点地图
-	 */
-	@RequestMapping(value = "map-{siteId}${urlSuffix}")
-	public String map(@PathVariable String siteId, Model model) {
-		Site site = CmsUtils.getSite(siteId!=null?siteId:Site.defaultSiteId());
-		model.addAttribute("site", site);
-		return "modules/cms/front/themes/"+site.getTheme()+"/frontMap";
-	}
 
-    private String getTpl(Article article){
-        if(StringUtils.isBlank(article.getCustomContentView())){
-            String view = null;
-            Category c = article.getCategory();
-            boolean goon = true;
-           
-            do{
-                if(StringUtils.isNotBlank(c.getCustomContentView())){
-                    view = c.getCustomContentView();
-                    goon = false;
-                }else if(c.getParent() == null || c.getParent().isRoot()){
-                    goon = false;
-                }else{
-                    c = c.getParent();
-                }
-            }while(goon);
-            return StringUtils.isBlank(view) ? Article.DEFAULT_TEMPLATE : view;
-        }else{
-            return article.getCustomContentView();
-        }
-    }
-
-    private void setTplModelAttribute(Model model, String param){
-        if(StringUtils.isNotBlank(param)){
-            @SuppressWarnings("rawtypes")
-			Map map = JsonMapper.getInstance().fromJson(param, Map.class);
-            if(map != null){
-                for(Object o : map.keySet()){
-                    model.addAttribute("viewConfig_"+o.toString(), map.get(o));
-                }
-            }
-        }
-    }
-
-    private void setTplModelAttribute(Model model, Category category){
-        List<Category> categoryList = Lists.newArrayList();
-        Category c = category;
-        boolean goon = true;
-        do{
-            if(c.getParent() == null || c.getParent().isRoot()){
-                goon = false;
-            }
-            categoryList.add(c);
-            c = c.getParent();
-        }while(goon);
-        Collections.reverse(categoryList);
-        for(Category ca : categoryList){
-            setTplModelAttribute(model, ca.getViewConfig());
-        }
-    }
     
 	
 }
