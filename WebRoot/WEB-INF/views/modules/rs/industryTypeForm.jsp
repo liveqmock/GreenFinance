@@ -4,6 +4,12 @@
   <head>
   	<meta name="decorator" content="default"/>
 	<title>行业分类管理</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#inputForm").validate({
+			});
+		});
+	</script>
 	
   </head>
   
@@ -26,10 +32,10 @@
 			<div class="controls">
 				<c:choose>
 					<c:when test="${industryType.industryCode ne null }">
-						<form:input path="industryCode"></form:input>
+						<form:input path="industryCode" class="required"></form:input>
 					</c:when>
 					<c:otherwise>
-						<form:input path="industryCode"></form:input>
+						<form:input path="industryCode" class="required"></form:input>
 					</c:otherwise>
 				</c:choose>
 				
@@ -38,13 +44,13 @@
 		<div class="control-group">
 			<label class="control-label">行业名称:</label>
 			<div class="controls">
-				<form:input path="industryName"></form:input>
+				<form:input path="industryName" class="required"></form:input>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">行业说明:</label>
 			<div class="controls">
-				<form:input path="industryNote"></form:input>
+				<form:textarea path="industryNote" htmlEscape="false" rows="3" maxlength="400" class="input-xlarge"/>	
 			</div>
 		</div>
 		<div class="form-actions">
