@@ -17,7 +17,7 @@
 	</h1>
 			<canvas id="canvas" height="450" width="600"></canvas>
 			<script  type="text/javascript">
-				var lineChartData = {scaleOverride : false,labels : ["2014-01-01","2014-01-01","2014-01-02",],datasets : [{					fillColor : "rgba(220,220,220,0.5)",					strokeColor : "rgba(220,220,220,1)",					pointColor : "rgba(220,220,220,1)",					pointStrokeColor : "#fff",					data : [1.0,1.0,2.0,]				},]};
+				var lineChartData = ${chart};
 				//alert(lineChartData);
 				new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
 			</script>

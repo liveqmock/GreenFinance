@@ -196,12 +196,16 @@ public class RsFrontController extends BaseController{
 				Map<String,List> infos = new HashMap<String, List>();
 				List<String> labelList = Lists.newArrayList();
 				List<String> dataList = Lists.newArrayList();
+				List<String> standardList = Lists.newArrayList();
+				String standard = Double.toString(airInfos.get(0).getAirStandardItem().getGbValue());
 				for(EnterAirInfo info : airInfos){
 					labelList.add(info.getDate().toString());
 					dataList.add(info.getValue().toString());
+					standardList.add(standard);
 				}
 				infos.put("label", labelList);
 				infos.put("data",dataList);
+				infos.put("standard",standardList);
 				String strInfo = Data2LineChart.data2Chart(infos);
 				model.addAttribute("chart",strInfo);
 

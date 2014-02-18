@@ -21,7 +21,7 @@
 								var id = h.find("iframe")[0].contentWindow.id;
 								if (v=="ok"){
 									$("#testLabel").html(id);
-							    	$('#getEnterBasicInfoForm').attr('action','${ctx}/rs/enterAirInfo/?enterCode='+id).submit();
+							    	$('#getEnterBasicInfoForm').attr('action','${ctx}/rs/enterSolidInfo/?enterCode='+id).submit();
 							    	return true;
 								} 
 							}, loaded:function(h){
@@ -42,8 +42,8 @@
 		</div>
 	</div>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="">大气环境</a></li>
-		<li><a href="">固体废弃物环境</a></li>
+		<li><a href="">大气环境</a></li>
+		<li class="active"><a href="">固体废弃物环境</a></li>
 		<li><a href="">声环境</a></li>
 		<li><a href="">水环境</a></li>
 		<li><a href="">节能生产</a></li>
@@ -52,20 +52,20 @@
 	</ul>
 	<form id="listForm" method="post"> 
 		<table id="contentTable" class="table table-bordered table-condensed">
-			<thead><tr><th>污染物项目</th><th>平均时间</th><th>浓度</th><th>单位</th></tr></thead>
+			<thead><tr><th>污染物项目</th><th>适用范围</th><th>浓度</th><th>单位</th></tr></thead>
 			<tbody>
-				<c:forEach items="${airStandardItems}" var="airStandardItem"> 
+				<c:forEach items="${solidStandardItems}" var="solidStandardItem"> 
 					<tr>
-						<td>${airStandardItem.itemName }</td>
-						<td>${airStandardItem.avarageTime }</td>
+						<td>${solidStandardItem.itemName }</td>
+						<td>${solidStandardItem.enterScope }</td>
 						<td>
 							<input type="hidden" name="enterCodes" value="${enterBasicInfo.enterCode}"/>
-							<input type="hidden" name="itemIds" value="${airStandardItem.id}"/>
+							<input type="hidden" name="itemIds" value="${solidStandardItem.id}"/>
 							<input id="date" type="hidden" name="date"/>
 							<input type="text" name="values" value="${menu.sort}" style="width:50px;margin:0;padding:0;text-align:center;">
 						</td>
-						<td>${airStandardItem.itemUnit }</td>
-					</tr>
+						<td>${solidStandardItem.itemUnit }</td>
+					</tr> 
 				</c:forEach>
 			</tbody>
 		</table>	
@@ -79,7 +79,7 @@
 					alert("企业与日期都不能为空！");
 				}else{
 					$("#date").val($("#selectDate").val());
-					$("#listForm").attr("action","${ctx}/rs/enterAirInfo/save").submit();
+					$("#listForm").attr("action","${ctx}/rs/enterSolidInfo/save").submit();
 				}
 			}
 		</script>
