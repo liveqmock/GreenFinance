@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="jeetest">
+    <wb-module deploy-name="GreenFinance">
         <wb-resource deploy-path="/" source-path="/WebRoot" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
-        <property name="context-root" value="jeetest"/>
-        <property name="java-output-path" value="/jeetest/WebRoot/WEB-INF/classes"/>
+        <property name="java-output-path" value="/GreenFinance/WebRoot/WEB-INF/classes"/>
+        <property name="context-root" value="GreenFinance"/>
     </wb-module>
 </project-modules>
